@@ -1,20 +1,18 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-const bodyParser = require('body-parser');
-const urlencodedParser = bodyParser.urlencoded({extended: false});
+const bodyParser = require("body-parser");
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-const EmailloginController = require('../controlers/EmailLoginContorles');
-const GoogleloginController = require('../controlers/GoogleLoginControles');
-const FbloginController = require('../controlers/FbLoginControles');
+const GoogleloginController = require("../controlers/GoogleLoginControles");
+const FbloginController = require("../controlers/FbLoginControles");
+const SessionLogin = require("../controlers/firebaseControles/sessionLogin");
 
-router.post('/loginEmail',urlencodedParser, EmailloginController.LoginEmail);
+router.get("/", main.mailina);
 
-router.post('/loginGoogle', GoogleloginController.LoginGoogle);
-router.post('/loginFB', FbloginController.LoginFB);
+router.post("/sessionLogin", SessionLogin.sessionLogin);
 
-
-
-
+router.post("/loginGoogle", GoogleloginController.LoginGoogle);
+router.post("/loginFB", FbloginController.LoginFB);
 
 module.exports = router;

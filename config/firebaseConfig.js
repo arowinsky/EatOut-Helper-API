@@ -1,6 +1,6 @@
-const firebase = require('firebase');
-require('firebase/auth');
-require('firebase/firestore');
+const firebase = require("firebase");
+require("firebase/auth");
+require("firebase/firestore");
 const config = {
   apiKey: "AIzaSyAaJRfgtMU3LqvV07NyiaGfqUj_XGpkoNo",
   authDomain: "eatout-faae0.firebaseapp.com",
@@ -11,5 +11,6 @@ const config = {
 };
 firebase.initializeApp(config);
 
-module.exports = firebase;
+let db = firebase.firestore();
 
+module.exports = db;

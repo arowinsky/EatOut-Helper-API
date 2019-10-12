@@ -1,8 +1,7 @@
-const app = require('./app');
+const app = require("./app");
 
-app.set('port',process.env.PORT || 8080)
+app.set("port", process.env.PORT || 8080);
 
-const server = app.listen(app.get('port'),()=>{
-    console.log(`Nasłuchiwanie ${server.address().port}`);
+const server = app.listen(app.get("port"), () => {
+  console.log(`Listen ${server.address().port}`);
 });
-

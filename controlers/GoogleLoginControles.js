@@ -1,6 +1,5 @@
-exports.LoginGoogle = (req,res)=>{
- 
-    res.json({
-        'Logowanie':'Google'
-    })
+exports.LoginGoogle = (req, res) => {
+  res.json({
+    LogIn: "Google"
+  });
 };
