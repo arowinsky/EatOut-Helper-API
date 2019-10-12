@@ -19,7 +19,7 @@ app.use(
 );
 
 app.post("/loginEmail", (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
   const authData = {
     email: req.body.email,
     password: req.body.password,
