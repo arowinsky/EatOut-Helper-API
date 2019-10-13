@@ -44,16 +44,18 @@ app.post("/loginEmail", (req, res) => {
         .then(doc => {
           let userData = doc.data().userData;
           req.session.userData = userData;
+          console.log(req.sessionID);
+
           res.status(201).json({
             status: true,
-            name: userData
+            name: userData,
+            idSession: req.sessionID
           });
         });
     })
-
     .catch(error => {
-      res.status(401);
-      res.send("error");
+      res.status(201);
+      res.json({ error: true });
     });
 }),
   (module.exports = app);
