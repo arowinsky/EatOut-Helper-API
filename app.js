@@ -5,21 +5,30 @@ const session = require("express-session");
 const app = express();
 const axios = require("axios");
 const db = require("./config/firebaseConfig");
+const FileStore = require("session-file-store")(session);
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParse());
+const option = {
+  path: "./session",
+  ttl: 3600
+};
+const store = new FileStore(option);
 
 app.use(
   session({
     secret: "mySessionCode",
     resave: false,
+    store: store,
     saveUninitialized: true,
     cookie: { secure: true }
   })
 );
 
 app.post("/loginEmail", (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  console.log(req.body);
   const authData = {
     email: req.body.email,
     password: req.body.password,
@@ -40,9 +49,10 @@ app.post("/loginEmail", (req, res) => {
         }
       }).then(users => {
         console.log(users.data.users[0].emailVerified);
+
         if (users.data.users[0].emailVerified === false) {
           res.json({
-            emailUnverified: "unverified"
+            emailUnverified: true
           });
         } else {
           req.session.Token = user.data.idToken;
@@ -56,6 +66,7 @@ app.post("/loginEmail", (req, res) => {
               let userData = doc.data().userData;
               req.session.userData = userData;
               console.log(req.sessionID);
+
               res.json({
                 status: true,
                 name: userData,
@@ -74,10 +85,11 @@ app.post("/loginEmail", (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
     const id = req.body.sid;
     const reSend = req.body.pleaseReSend;
+    console.log(req.body);
     if (id != "null") {
       store.get(id, (err, session) => {
         if (id != "undefined" && reSend) {
-          console.log("Resending" + session.userData);
+          console.log("Ponowne wysłanie" + session.userData);
           res.json({
             userInfo: session.userData
           });
@@ -90,10 +102,24 @@ app.post("/loginEmail", (req, res) => {
         }
       });
     } else {
-      console.log("lack sid");
+      console.log("lack of sid");
       res.json({
         session: "TimeOut"
       });
     }
   });
-(module.exports = app), session;
+
+app.post("/logout", (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+
+  const id = req.body.sid;
+
+  store.destroy(id, err => {
+    console.log(err);
+  });
+  res.json({
+    userLogOut: true
+  });
+});
+
+module.exports = app;
