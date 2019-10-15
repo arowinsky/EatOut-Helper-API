@@ -59,3 +59,31 @@ app.post("/loginEmail", (req, res) => {
     });
 }),
   (module.exports = app);
+
+app.post("/autoLogin", (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  const id = req.body.sid;
+  const reSend = req.body.pleaseReSend;
+  if (id != "null") {
+    store.get(id, (err, session) => {
+      if (id != "undefined" && reSend) {
+        console.log("Resending" + session.userData);
+        res.json({
+          userInfo: session.userData
+        });
+      }
+      if (err) {
+        console.log("error");
+        res.json({
+          session: "TimeOut"
+        });
+      }
+    });
+  } else {
+    console.log("lack sid");
+    res.json({
+      session: "TimeOut"
+    });
+  }
+});
+(module.exports = app), session;
