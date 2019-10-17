@@ -36,7 +36,7 @@ app.post("/register", (req, res) => {
     password: req.body.password
   };
 
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
 
   db.collection("users")
     .where("username", "==", username)
