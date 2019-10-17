@@ -98,6 +98,27 @@ app.post("/register", (req, res) => {
     });
 });
 
+app.post("/resetpassword", (req, res) => {
+  axios({
+    method: "POST",
+    requestType: "PASSWORD_RESET",
+    url:
+      "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAaJRfgtMU3LqvV07NyiaGfqUj_XGpkoNo",
+    data: {
+      requestType: "PASSWORD_RESET",
+      email: req.body.email
+    }
+  })
+    .then(response => {
+      console.log("Sent");
+      res.json({ ResetedPassword: true });
+    })
+    .catch(err => {
+      console.log("Not sent", err.response.data.error);
+      res.json({ ResetedPassword: false });
+    });
+});
+
 app.post("/loginEmail", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   console.log(req.body);
