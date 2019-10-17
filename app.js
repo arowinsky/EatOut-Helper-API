@@ -111,12 +111,12 @@ app.post("/reset-password", (req, res) => {
     }
   })
     .then(response => {
-      // console.log(response);
       console.log("Sent");
       res.json({ resetedPassword: true });
     })
     .catch(err => {
       console.log("Not sent", err.response.data.error);
+      res.status(201);
       res.json({ resetedPassword: false });
     });
 });
