@@ -122,7 +122,7 @@ app.post("/reset-password", (req, res) => {
 });
 
 app.post("/loginEmail", (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
   console.log(req.body);
   const authData = {
     email: req.body.email,
