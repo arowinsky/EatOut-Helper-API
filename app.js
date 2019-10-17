@@ -36,7 +36,7 @@ app.post("/register", (req, res) => {
     password: req.body.password
   };
 
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
 
   db.collection("users")
     .where("username", "==", username)
@@ -98,8 +98,31 @@ app.post("/register", (req, res) => {
     });
 });
 
+app.post("/reset-password", (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  axios({
+    method: "POST",
+    requestType: "PASSWORD_RESET",
+    url:
+      "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAaJRfgtMU3LqvV07NyiaGfqUj_XGpkoNo",
+    data: {
+      requestType: "PASSWORD_RESET",
+      email: req.body.email
+    }
+  })
+    .then(response => {
+      console.log("Sent");
+      res.json({ resetedPassword: true });
+    })
+    .catch(err => {
+      console.log("Not sent", err.response.data.error);
+      res.status(201);
+      res.json({ resetedPassword: false });
+    });
+});
+
 app.post("/loginEmail", (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
   console.log(req.body);
   const authData = {
     email: req.body.email,
@@ -161,7 +184,7 @@ app.post("/loginEmail", (req, res) => {
     if (id != "null") {
       store.get(id, (err, session) => {
         if (id != "undefined" && reSend) {
-          console.log("Ponowne wysłanie" + session.userData);
+          console.log("Resend" + session.userData);
           res.json({
             userInfo: session.userData
           });
