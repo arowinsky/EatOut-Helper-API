@@ -99,6 +99,7 @@ app.post("/register", (req, res) => {
 });
 
 app.post("/reset-password", (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
   axios({
     method: "POST",
     requestType: "PASSWORD_RESET",
@@ -110,6 +111,7 @@ app.post("/reset-password", (req, res) => {
     }
   })
     .then(response => {
+      // console.log(response);
       console.log("Sent");
       res.json({ resetedPassword: true });
     })
