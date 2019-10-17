@@ -98,7 +98,7 @@ app.post("/register", (req, res) => {
     });
 });
 
-app.post("/resetpassword", (req, res) => {
+app.post("/reset-password", (req, res) => {
   axios({
     method: "POST",
     requestType: "PASSWORD_RESET",
@@ -111,11 +111,11 @@ app.post("/resetpassword", (req, res) => {
   })
     .then(response => {
       console.log("Sent");
-      res.json({ ResetedPassword: true });
+      res.json({ resetedPassword: true });
     })
     .catch(err => {
       console.log("Not sent", err.response.data.error);
-      res.json({ ResetedPassword: false });
+      res.json({ resetedPassword: false });
     });
 });
 
@@ -182,7 +182,7 @@ app.post("/loginEmail", (req, res) => {
     if (id != "null") {
       store.get(id, (err, session) => {
         if (id != "undefined" && reSend) {
-          console.log("Ponowne wysłanie" + session.userData);
+          console.log("Resend" + session.userData);
           res.json({
             userInfo: session.userData
           });
