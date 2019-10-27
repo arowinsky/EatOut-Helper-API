@@ -55,17 +55,17 @@ app.use("/reset-password", reset_password);
 app.use("/loginEmail", login);
 app.use("/autoLogin", autoLogin);
 
-app.post("/logout", (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+// app.post("/logout", (req, res) => {
+//   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
 
-  const id = req.body.sid;
+//   const id = req.body.sid;
 
-  store.destroy(id, err => {
-    console.log(err);
-  });
-  res.json({
-    userLogOut: true
-  });
-});
+//   store.destroy(id, err => {
+//     console.log(err);
+//   });
+//   res.json({
+//     userLogOut: true
+//   });
+// });
 
 module.exports = app;
