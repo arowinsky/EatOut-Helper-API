@@ -3,9 +3,11 @@ const bodyParser = require("body-parser");
 const cookieParse = require("cookie-parser");
 const session = require("express-session");
 const app = express();
-const axios = require("axios");
-const db = require("./config/firebaseConfig");
-const FileStore = require("session-file-store")(session);
+
+const redis = require("redis");
+const redisStore = require("connect-redis")(session);
+const redisClient = redis.createClient();
+
 const register = require("./controllers/registerController");
 const reset_password = require("./controllers/resetPasswordController");
 const login = require("./controllers/emailLoginController");
@@ -14,17 +16,35 @@ const autoLogin = require("./controllers/autoLoginController");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParse());
-const option = {
-  path: "./session",
-  ttl: 3600
-};
-const store = new FileStore(option);
+// const option = {
+//   path: "./session",
+//   ttl: 3600
+// };
+// const store = new FileStore(option);
 
+// app.use(
+//   session({
+//     secret: "mySessionCode",
+//     resave: false,
+//     store: store,
+//     saveUninitialized: true,
+//     cookie: { secure: true }
+//   })
+// );
+
+redisClient.on("error", err => {
+  console.log("Redis error: ", err);
+});
 app.use(
   session({
     secret: "mySessionCode",
     resave: false,
-    store: store,
+    store: new redisStore({
+      host: "localhost",
+      port: 6379,
+      client: redisClient,
+      ttl: 86400
+    }),
     saveUninitialized: true,
     cookie: { secure: true }
   })
