@@ -7,6 +7,7 @@ const axios = require("axios");
 const db = require("./config/firebaseConfig");
 const FileStore = require("session-file-store")(session);
 const register = require("./controllers/registerController");
+const reset_password = require("./controllers/resetPasswordController");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -28,29 +29,7 @@ app.use(
 );
 
 app.use("/register", register);
-
-app.post("/reset-password", (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
-  axios({
-    method: "POST",
-    requestType: "PASSWORD_RESET",
-    url:
-      "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAaJRfgtMU3LqvV07NyiaGfqUj_XGpkoNo",
-    data: {
-      requestType: "PASSWORD_RESET",
-      email: req.body.email
-    }
-  })
-    .then(response => {
-      console.log("Sent");
-      res.json({ resetedPassword: true });
-    })
-    .catch(err => {
-      console.log("Not sent", err.response.data.error);
-      res.status(201);
-      res.json({ resetedPassword: false });
-    });
-});
+app.use("/reset-password", reset_password);
 
 app.post("/loginEmail", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
