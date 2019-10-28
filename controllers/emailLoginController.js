@@ -54,7 +54,7 @@ router.post("/", (req, res) => {
     })
     .catch(error => {
       res.status(201);
-      res.json({ error: true });
+      res.json({ error: error.response.data.error.message });
     });
 });
 module.exports = router;
