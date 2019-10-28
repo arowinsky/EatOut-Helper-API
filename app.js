@@ -12,6 +12,7 @@ const register = require("./controllers/registerController");
 const reset_password = require("./controllers/resetPasswordController");
 const login = require("./controllers/emailLoginController");
 const autoLogin = require("./controllers/autoLoginController");
+const logOut = require("./controllers/logOutController");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -39,5 +40,6 @@ app.use("/register", register);
 app.use("/reset-password", reset_password);
 app.use("/loginEmail", login);
 app.use("/autoLogin", autoLogin);
+app.use("/logout", logOut);
 
 module.exports = app;
