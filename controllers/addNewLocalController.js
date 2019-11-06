@@ -57,6 +57,9 @@ router.post("/", (req, res) => {
       })
       .then(() => {
         console.log("Sent");
+        res.json({
+          added: true
+        });
       })
       .catch(err => {
         console.log("Error", err);
