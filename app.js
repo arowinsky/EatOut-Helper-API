@@ -13,6 +13,7 @@ const reset_password = require("./controllers/resetPasswordController");
 const login = require("./controllers/emailLoginController");
 const autoLogin = require("./controllers/autoLoginController");
 const logOut = require("./controllers/logOutController");
+const addNewLocal = require("./controllers/addNewLocalController");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -41,5 +42,6 @@ app.use("/reset-password", reset_password);
 app.use("/loginEmail", login);
 app.use("/autoLogin", autoLogin);
 app.use("/logout", logOut);
+app.use("/add-new-local", addNewLocal);
 
 module.exports = app;
