@@ -13,7 +13,6 @@ router.post("/", (req, res) => {
     console.log(user);
     const info = {
       owner: user.localId,
-      restaurantStreet: data.restaurantStreet,
       mondayOpenHour: data.mondayOpenHour,
       mondayCloseHour: data.mondayCloseHour,
       tuesdayOpenHour: data.tuesdayOpenHour,
@@ -28,7 +27,10 @@ router.post("/", (req, res) => {
       saturdayCloseHour: data.saturdayCloseHour,
       sundayOpenHour: data.sundayOpenHour,
       sundayCloseHour: data.sundayCloseHour,
-      restaurantName: data.restaurantName
+      restaurantName: data.restaurantName,
+      restaurantStreet: data.restaurantStreet,
+      restaurantEmail: data.restaurantEmail,
+      restaurantPhoneNumber: data.restaurantPhoneNumber
     };
     delete data.restaurantStreet;
     delete data.mondayOpenHour;
