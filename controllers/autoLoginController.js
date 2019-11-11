@@ -14,11 +14,13 @@ router.post("/", (req, res) => {
 
       redisClient.get(key, (err, date) => {
         const dates = JSON.parse(date);
+        console.log(dates.localId);
         const userData = dates.userData;
         if (err === null) {
           console.log("Resend" + userData);
           res.json({
-            userInfo: userData
+            userInfo: userData,
+            userId: dates.localId
           });
         }
         if (err != null) {
