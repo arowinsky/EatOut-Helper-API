@@ -25,12 +25,9 @@ router.post("/", (req, res) => {
           }
           snapshot.forEach(doc => {
             console.log(doc.id, "=>", doc.data().info);
-            // const info = JSON.stringify(doc.data().info);
-
-            // res.console.log("msg");
+            const eatingPlace = { ...doc.data().data, ...doc.data().info };
             res.json({
-              eatingPlaceData: doc.data().data,
-              eatingPlaceInfo: doc.data().info
+              eatingPlace: eatingPlace
             });
           });
         });
