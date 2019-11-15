@@ -7,29 +7,34 @@ const db = require("../config/firebaseConfig");
 router.post("/", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   console.log(req.body);
-  const localId = req.body.localId;
-  if (localId != "null") {
-    //   redisClient.get(key, (err,) => {
+  const z = req.body.z;
+  if (z != "null") {
+    const key = "sess:" + z;
+    console.log(key);
+    redisClient.get(key, (error, red) => {
+      const dates = JSON.parse(red);
+      console.log(dates);
+      console.log("local ", dates.localId);
+      db.collection("restaurants")
+        .where("info.owner", "==", dates.localId)
+        .get()
+        .then(snapshot => {
+          if (snapshot.empty) {
+            console.log("No matching documents.");
+            return;
+          }
+          snapshot.forEach(doc => {
+            console.log(doc.id, "=>", doc.data().info);
+            // const info = JSON.stringify(doc.data().info);
 
-    //   })
-    db.collection("restaurants")
-      .where("info.owner", "==", localId)
-      .get()
-      .then(snapshot => {
-        if (snapshot.empty) {
-          console.log("No matching documents.");
-          return;
-        }
-        snapshot.forEach(doc => {
-          console.log(doc.id, "=>", doc.data().info);
-          const info = JSON.stringify(doc.data().info);
-
-          // res.console.log("msg");
-          res.json({
-            eatingPlace: info
+            // res.console.log("msg");
+            res.json({
+              eatingPlaceData: doc.data().data,
+              eatingPlaceInfo: doc.data().info
+            });
           });
         });
-      });
+    });
   }
 });
 module.exports = router;
