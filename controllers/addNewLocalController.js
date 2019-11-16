@@ -5,7 +5,7 @@ const redisClient = redis.createClient();
 const db = require("../config/firebaseConfig");
 
 router.post("/", (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.setHeader("Access-Control-Allow-Origin", "*");
   const data = JSON.parse(req.body.values);
   console.log(data);
   redisClient.get("sess:" + req.body.z, (err, user) => {
