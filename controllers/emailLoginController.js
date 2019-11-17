@@ -3,7 +3,7 @@ const router = express.Router();
 const axios = require("axios");
 const db = require("../config/firebaseConfig");
 router.post("/", (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.setHeader("Access-Control-Allow-Origin", "*");
   console.log(req.body);
   const authData = {
     email: req.body.email,

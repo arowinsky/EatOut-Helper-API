@@ -4,7 +4,7 @@ const redis = require("redis");
 const redisClient = redis.createClient();
 
 router.post("/", (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.setHeader("Access-Control-Allow-Origin", "*");
   const id = req.body.z;
 
   if (id === null || id === "undefined") {
