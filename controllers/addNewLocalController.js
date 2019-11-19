@@ -2,15 +2,13 @@ const express = require("express");
 const router = express.Router();
 const redis = require("redis");
 const redisClient = redis.createClient();
-const db = require("../config/firebaseConfig");
+const {db, admin} = require("../config/firebaseConfig");
 
 router.post("/", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   const data = JSON.parse(req.body.values);
-  console.log(data);
   redisClient.get("sess:" + req.body.z, (err, user) => {
     user = JSON.parse(user);
-    console.log(user);
     const info = {
       owner: user.localId,
       mondayOpenHour: data.mondayOpenHour,
@@ -27,35 +25,69 @@ router.post("/", (req, res) => {
       saturdayCloseHour: data.saturdayCloseHour,
       sundayOpenHour: data.sundayOpenHour,
       sundayCloseHour: data.sundayCloseHour,
-      restaurantName: data.restaurantName,
+      restaurantName:
+        data.restaurantName.charAt(0).toUpperCase() +
+        data.restaurantName.slice(1),
       restaurantStreet: data.restaurantStreet,
       restaurantEmail: data.restaurantEmail,
       restaurantPhoneNumber: data.restaurantPhoneNumber
     };
-    delete data.restaurantStreet;
-    delete data.mondayOpenHour;
-    delete data.mondayCloseHour;
-    delete data.tuesdayOpenHour,
-      delete data.tuesdayCloseHour,
-      delete data.wednesdayOpenHour,
-      delete data.wednesdayCloseHour,
-      delete data.thursdayOpenHour,
-      delete data.thursdayCloseHour,
-      delete data.fridayOpenHour;
-    delete data.fridayCloseHour;
-    delete data.saturdayOpenHour;
-    delete data.saturdayCloseHour;
-    delete data.sundayOpenHour;
-    delete data.sundayCloseHour;
-    delete data.restaurantAvatar;
-    delete data.restaurantHeader;
-    delete data.restaurantMenu;
-    delete data.restaurantName;
-    db.collection("restaurants")
+    const dishs = {
+      pizza: data.pizza,
+      sushi: data.sushi,
+      ramen: data.ramen,
+      kawa: data.kawa,
+      makaron: data.makaron,
+      kebab: data.kebab,
+      stek: data.stek,
+      ciastko: data.ciasto,
+      burger: data.burger,
+      zapieknaki: data.zapiekanki,
+      obiad: data.obiad,
+      alkohol: data.alkohol
+    };
+
+    const kitchen = {
+      arabska: data.arabska,
+      europejska: data.europejska,
+      francuska: data.francuska,
+      meksykanska: data.meksykańska,
+      amerykanska: data.amerykańska,
+      domowa: data.domowa,
+      azjatycka: data.azjatycka,
+      dietetyczna: data.dietetyczna,
+      wloska: data.włoska,
+      polska: data.polska,
+      wege_wegan: data.wege_wegan
+    };
+    console.log(kitchen);
+    const opportunity = {
+      sniadanie: data.śniadanie,
+      lunch: data.lunch,
+      randka: data.randka,
+      pub: data.pub
+    };
+    console.log(opportunity);
+    const facilities = {
+      wifi: data.wifi,
+      przystosowanie_dla_osob_niepelnosprawnych:
+        data.przystosowane_dla_osób_niepełnosprawnych,
+      insta_friendly: data.insta_friendly,
+      transmija_meczy: data.transmisja_meczy,
+      pokoj_dla_matki_z_dzieckiem: data.pokój_dla_matki_z_dzieckiem,
+      jezyk_migowy: data.język_migowy,
+      ogrodek: data.ogródek,
+      animal_friendly: data.animal_friendly
+    };
+    console.log(facilities);
+    db.collection("eatingPlace")
       .doc()
       .set({
         info,
-        data
+        dishs,
+        kitchen,
+        opportunity,
+        facilities
       })
       .then(() => {
         console.log("Sent");
@@ -64,7 +96,7 @@ router.post("/", (req, res) => {
         });
       })
       .catch(err => {
-        console.log("Error", err);
+        console.log("no added", err);
       });
   });
 });
