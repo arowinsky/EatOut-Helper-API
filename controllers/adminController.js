@@ -3,7 +3,7 @@ const router = express.Router();
 const {db, admin} = require('../config/firebaseConfig');
 
 router.post("/", (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.setHeader("Access-Control-Allow-Origin", "*");
 
 const uid = req.body.uid;
 

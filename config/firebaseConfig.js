@@ -13,7 +13,7 @@ const config = {
   credential: admin.credential.cert(serviceAccount),
 };
 firebase.initializeApp(config);
-admin.initializeApp(config)
+admin.initializeApp(config);
 let db = firebase.firestore();
 
 module.exports = {db, admin};
