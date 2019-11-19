@@ -15,7 +15,7 @@ const autoLogin = require("./controllers/autoLoginController");
 const logOut = require("./controllers/logOutController");
 const addNewLocal = require("./controllers/addNewLocalController");
 const getDataPlace = require("./controllers/getDataPlaceController");
-
+const deleteUser = require('./controllers/adminController');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParse());
@@ -45,5 +45,5 @@ app.use("/autoLogin", autoLogin);
 app.use("/logout", logOut);
 app.use("/add-new-local", addNewLocal);
 app.use("/get-data-place", getDataPlace);
-
+app.use('/delete-user', deleteUser);
 module.exports = app;
