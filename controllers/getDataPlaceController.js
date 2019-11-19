@@ -25,7 +25,12 @@ router.post("/", (req, res) => {
           }
           snapshot.forEach(doc => {
             console.log(doc.id, "=>", doc.data().info);
-            const eatingPlace = { ...doc.data().data, ...doc.data().info };
+            const id = doc.id;
+            const eatingPlace = {
+              ...doc.data().data,
+              ...doc.data().info,
+              id
+            };
             res.json({
               eatingPlace: eatingPlace
             });
