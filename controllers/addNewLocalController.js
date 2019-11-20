@@ -32,7 +32,7 @@ router.post("/", (req, res) => {
       restaurantEmail: data.restaurantEmail,
       restaurantPhoneNumber: data.restaurantPhoneNumber
     };
-    const dishs = {
+    const dishes = {
       pizza: data.pizza,
       sushi: data.sushi,
       ramen: data.ramen,
