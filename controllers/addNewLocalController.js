@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const redis = require("redis");
 const redisClient = redis.createClient();
-const {db, admin} = require("../config/firebaseConfig");
+const { db, admin } = require("../config/firebaseConfig");
 
 router.post("/", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -42,7 +42,7 @@ router.post("/", (req, res) => {
       stek: data.stek,
       ciastko: data.ciasto,
       burger: data.burger,
-      zapieknaki: data.zapiekanki,
+      zapiekanki: data.zapiekanki,
       obiad: data.obiad,
       alkohol: data.alkohol
     };
