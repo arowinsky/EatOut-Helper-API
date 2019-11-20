@@ -84,7 +84,7 @@ router.post("/", (req, res) => {
       .doc()
       .set({
         info,
-        dishs,
+        dishes,
         kitchen,
         opportunity,
         facilities

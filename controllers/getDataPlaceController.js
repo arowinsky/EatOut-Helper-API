@@ -24,14 +24,14 @@ router.post("/", (req, res) => {
             return;
           }
           snapshot.forEach(doc => {
-            const dishs = doc.data().dishs;
+            const dishes = doc.data().dishes;
             const info = doc.data().info;
             const kitchen = doc.data().kitchen;
             const opportunity = doc.data().opportunity;
             const facilities = doc.data().facilities;
             const id = doc.id;
             res.json({
-              dishs: dishs,
+              dishes: dishes,
               info: info,
               kitchen: kitchen,
               opportunity: opportunity,
