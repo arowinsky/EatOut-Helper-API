@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const axios = require("axios");
-const {db, admin} = require("../config/firebaseConfig");
+const { db, admin, storage } = require("../config/firebaseConfig");
 
 router.post("/", (req, res) => {
   const firstname = req.body.firstName;
