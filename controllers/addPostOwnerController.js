@@ -4,10 +4,9 @@ const { db, admin, storage } = require("../config/firebaseConfig");
 
 router.post("/", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-
-  const post = req.body.post;
-  const nameLocal = req.body.nameLocal;
-  const local = req.body.local;
+  const post = req.body.textOfPost;
+  const nameLocal = req.body.eatingPlaceName;
+  const local = req.body.eatingPlaceId;
 
   db.collection("eatingPlace")
     .doc(local)
