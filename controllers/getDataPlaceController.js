@@ -8,7 +8,7 @@ const key =  require("../config/GoogleCloud.json");
 
 const storageGoogle = new Storage(key);
 
-router.get("/", (req, res) => {
+router.post("/", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
 
   const avatar = storageGoogle.bucket('eatout').file('avatar.jpg').download()
