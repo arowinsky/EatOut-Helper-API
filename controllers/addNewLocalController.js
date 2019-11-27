@@ -80,7 +80,7 @@ router.post("/", (req, res) => {
       animal_friendly: data.animal_friendly
     };
     console.log(facilities);
-    db.collection("eatingPlace")
+    db.collection("eatingPlaces")
       .doc()
       .set({
         info,
