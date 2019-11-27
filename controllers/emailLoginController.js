@@ -43,7 +43,7 @@ router.post("/", (req, res) => {
               req.session.userData = userData;
               console.log(req.sessionID);
               let localId = user.data.localId;
-
+              req.session.username = doc.data().username;
               res.json({
                 status: true,
                 name: userData,
