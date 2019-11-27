@@ -8,7 +8,7 @@ router.post("/", (req, res) => {
   const nameLocal = req.body.eatingPlaceName;
   const local = req.body.eatingPlaceId;
 
-  db.collection("eatingPlace")
+  db.collection("eatingPlaces")
     .doc(local)
     .collection("posts_owner")
     .doc()
