@@ -15,7 +15,7 @@ router.post("/", (req, res) => {
       const dates = JSON.parse(red);
       console.log(dates);
       console.log("local ", dates.localId);
-      db.collection("eatingPlace")
+      db.collection("eatingPlaces")
         .where("info.owner", "==", dates.localId)
         .get()
         .then(snapshot => {
