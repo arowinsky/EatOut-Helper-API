@@ -21,7 +21,7 @@ router.post("/", (req, res) => {
       .doc(eatingPlaceId)
       .collection("clientOpinions")
       .doc()
-      .set({ clientOpinion: clientOpinion, author: username, data: new Date() })
+      .set({ clientOpinion: clientOpinion, author: username, date: new Date() })
       .then(() => {
         res.json({
           isAdded: true
