@@ -14,12 +14,13 @@ router.post("/", (req, res) => {
     console.log(key);
     redisClient.get(key, (error, red) => {
       const dates = JSON.parse(red);
-      //console.log(dates);
-      //console.log("local ", dates.localId);
+      
+      
       db.collection("eatingPlaces")
         .where("info.owner", "==", dates.localId)
         .get()
         .then(snapshot => {
+          let Opinions;
           if (snapshot.empty) {
             console.log("No matching documents.");
             return;
@@ -35,6 +36,29 @@ router.post("/", (req, res) => {
             const avatar = `https://storage.cloud.google.com/eatout/${dates.localId}/${id}/avatar.jpg`
             const header = `https://storage.cloud.google.com/eatout/${dates.localId}/${id}/header.jpg`
             const menu = `https://storage.cloud.google.com/eatout/${dates.localId}/${id}/menu.jpg`
+
+          db.collection("eatingPlaces").doc(id).collection('clientOpinions').orderBy('data').get().then((opinions)=>{
+            if(opinions.empty){
+              console.log('empty')
+            }
+            else{
+              Opinions = opinions.docs.map(opinion=>{
+                const author = opinion.data().author;
+                const clientOpinion = opinion.data().clientOpinion;
+                const date = opinion.data().data;
+
+                const SendOpinions = {
+                  author:author,
+                  clientOpinion: clientOpinion,
+                  date: date
+                }
+                //console.log('opinie ', SendOpinions)
+                return(SendOpinions)
+              })
+              console.log(Opinions)
+            }
+
+          })
           
             const array = {id:id,
             dishes: dishes,
@@ -50,10 +74,11 @@ router.post("/", (req, res) => {
             return(array)
           
           });
-
-
+          
+          console.log(places);
           res.json({
-            places: places
+            places: places,
+            opinion: Opinions,
           });
         }
         });
