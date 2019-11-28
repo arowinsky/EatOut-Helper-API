@@ -19,8 +19,6 @@ router.post("/", (req, res) => {
       .then((places) => {
 
         places.docs.map(doc => {
-
-
           const dishes = doc.data().dishes;
           const info = doc.data().info;
           const kitchen = doc.data().kitchen;
@@ -31,21 +29,17 @@ router.post("/", (req, res) => {
           const header = `https://storage.cloud.google.com/eatout/${dates.localId}/${id}/header.jpg`
           const menu = `https://storage.cloud.google.com/eatout/${dates.localId}/${id}/menu.jpg`
 
-
-
           const opinione = db.collection('eatingPlaces').doc(id).collection('clientOpinions').get()
             .then(Opinion => {
 
               const opinion = Opinion.docs.map(docs => {
 
-                const author = docs.data().author;
-                const clientOpinion = docs.data().clientOpinion;
-                const date = docs.data().data;
+                const { author, clientOpinion, data } = docs.data()
 
                 const sendOpinin = {
                   author: author,
                   opinion: clientOpinion,
-                  date: date
+                  date: data
                 }
                 return (sendOpinin)
               })
@@ -62,17 +56,12 @@ router.post("/", (req, res) => {
                 menu: menu,
                 clientOpinions: opinion,
               }
-
               res.json({
                 places: array,
               })
 
             })
-
-
-
         });
-
       })
   });
 });

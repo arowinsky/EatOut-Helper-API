@@ -12,7 +12,7 @@ router.post("/", (req, res) => {
     .doc(local)
     .collection("posts_owner")
     .doc()
-    .set({ post: post, author: nameLocal, data: new Date() })
+    .set({ post: post, author: nameLocal, date: new Date() })
     .then(() => {
       res.json({
         addedPost: true
