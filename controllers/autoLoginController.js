@@ -13,6 +13,7 @@ router.post("/", (req, res) => {
       const key = "sess:" + id;
 
       redisClient.get(key, (err, date) => {
+        try{
         const dates = JSON.parse(date);
         const userData = dates.userData;
         if (err === null) {
@@ -28,17 +29,27 @@ router.post("/", (req, res) => {
             session: "TimeOut"
           });
         }
+      }catch(e){
+        console.log('bład')
+      }
+
       });
-    } else {
+
+
+    }
+     else {
       res.json({
         session: "TimeOut"
       });
     }
-  } else {
+  }
+
+   else {
     console.log("lack of sid");
     res.json({
       session: "TimeOut"
     });
   }
+
 });
 module.exports = router;
