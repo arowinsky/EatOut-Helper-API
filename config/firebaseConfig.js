@@ -1,7 +1,6 @@
 const firebase = require("firebase");
 require("firebase/auth");
 require("firebase/firestore");
-require("firebase/storage");
 const admin = require("firebase-admin");
 const serviceAccount = require("./serviceAccountKey.json");
 const config = {
@@ -16,5 +15,4 @@ const config = {
 firebase.initializeApp(config);
 admin.initializeApp(config);
 let db = firebase.firestore();
-let storage = firebase.storage();
-module.exports = { db, admin, storage };
+module.exports = { db, admin};

@@ -29,8 +29,12 @@ router.post("/", (req, res) => {
             session: "TimeOut"
           });
         }
-      }catch(e){
+      }
+      catch(e){
         console.log('bład')
+      res.json({
+        session:"wrong_Z"
+      })
       }
 
       });
