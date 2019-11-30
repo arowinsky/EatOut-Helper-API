@@ -9,6 +9,7 @@ router.post("/", (req, res) => {
   const data = JSON.parse(req.body.values);
   redisClient.get("sess:" + req.body.z, (err, user) => {
     user = JSON.parse(user);
+    try{
     const info = {
       owner: user.localId,
       mondayOpenHour: data.mondayOpenHour,
@@ -98,6 +99,12 @@ router.post("/", (req, res) => {
       .catch(err => {
         console.log("no added", err);
       });
+    }
+    catch(error){
+      res.json({
+        error:"Error redis"
+      })
+    }
   });
 });
 module.exports = router;
