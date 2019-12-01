@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const { db, admin} = require("../config/firebaseConfig");
+const { db, admin } = require("../config/firebaseConfig");
+const redis = require("redis");
+const redisClient = redis.createClient();
 
 router.post("/", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -11,25 +13,27 @@ router.post("/", (req, res) => {
   console.log(z);
   redisClient.get(z, (err, session) => {
     session = JSON.parse(session);
-    try{
-    const username = session.username;
+    try {
+      const username = session.username;
 
-
-    db.collection("eatingPlaces")
-      .doc(eatingPlaceId)
-      .collection("clientOpinions")
-      .doc()
-      .set({ clientOpinion: clientOpinion, author: username, date: new Date() })
-      .then(() => {
-        res.json({
-          isAdded: true
+      db.collection("eatingPlaces")
+        .doc(eatingPlaceId)
+        .collection("clientOpinions")
+        .doc()
+        .set({
+          clientOpinion: clientOpinion,
+          author: username,
+          date: new Date()
+        })
+        .then(() => {
+          res.json({
+            isAdded: true
+          });
         });
-      });
-    }
-    catch(error){
+    } catch (error) {
       res.json({
-        error:"wrong_z"
-      })
+        error: "wrong_z"
+      });
     }
   });
 });
