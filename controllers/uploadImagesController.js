@@ -7,9 +7,8 @@ router.post("/", async (req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
       try{
         const idUser = req.body.idUser
-    
-
         const idPlace = req.body.idPlace;
+          
           const avatar = req.files.avatar[0];
           const header = req.files.header[0];
           const menu = req.files.menu[0];
@@ -23,8 +22,6 @@ router.post("/", async (req, res, next) => {
           res.json({
               message: "upload udany",
           })
-  
-  
       }
       catch(error){
         console.log(error)
