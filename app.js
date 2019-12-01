@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cookieParse = require("cookie-parser");
 const session = require("express-session");
+const multer = require('multer');
 const app = express();
 
 const redis = require("redis");
@@ -22,6 +23,8 @@ const verificationClientCode = require("./controllers/verificationClientCodeCont
 const addClientOpinion = require("./controllers/addClientOpinionController");
 const getPostOwner = require("./controllers/getPostOwnerController");
 const getClientOpinion = require("./controllers/getOpninonController")
+const upload = require('./controllers/uploadImagesController');
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParse());
@@ -44,6 +47,22 @@ app.use(
   })
 );
 
+const multerMid = multer({
+  storage: multer.memoryStorage(),
+  limits:{
+      fileSize: 10 * 1024 * 1024
+  },
+})
+
+app.disable('x-powered-by')
+app.use(multerMid.fields([
+  {name:'avatar', maxCount:1},
+  {name:'header',maxCount:1},
+  {name:'menu', maxCount:1}
+])
+)
+
+app.use("/upload-img", upload)
 app.use("/register", register);
 app.use("/reset-password", reset_password);
 app.use("/loginEmail", login);
