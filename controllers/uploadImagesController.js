@@ -6,8 +6,7 @@ const redisClient = redis.createClient();
 router.post("/", async (req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
       try{
-        const idUser = req.body.idUser
-        const idPlace = req.body.idPlace;
+          const {idUser, idPlace} = req.body
           
           const avatar = req.files.avatar[0];
           const header = req.files.header[0];
