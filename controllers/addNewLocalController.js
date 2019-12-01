@@ -83,17 +83,20 @@ router.post("/", (req, res) => {
     console.log(facilities);
     db.collection("eatingPlaces")
       .doc()
-      .set({
+      .add({
         info,
         dishes,
         kitchen,
         opportunity,
         facilities
       })
-      .then(() => {
+      .then((idPlace) => {
         console.log("Sent");
+        console.log(idPlace.id)
         res.json({
-          added: true
+          added: true,
+          idPlace:idPlace.id,
+          idUser:user.localId
         });
       })
       .catch(err => {
