@@ -27,7 +27,7 @@ blobStream.on('finish', ()=>{
 })
 .on('error', (error)=>{
     console.log(error)
-    reject(`cos poszło nie tak`)
+    reject(`error with uploud`)
 })
 .end(buffer)
 })
