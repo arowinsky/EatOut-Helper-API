@@ -22,7 +22,7 @@ const generationCodeForClient = require("./controllers/generationCodeForClientCo
 const verificationClientCode = require("./controllers/verificationClientCodeController");
 const addClientOpinion = require("./controllers/addClientOpinionController");
 const getPostOwner = require("./controllers/getPostOwnerController");
-const getClientOpinion = require("./controllers/getOpninonController");
+const getCLientsOpinions = require("./controllers/getClientsOpinonsController");
 const upload = require("./controllers/uploadImagesController");
 
 app.use(bodyParser.json());
@@ -77,5 +77,5 @@ app.use("/generation-code-for-client", generationCodeForClient);
 app.use("/verification-client-code", verificationClientCode);
 app.use("/add-client-opinion", addClientOpinion);
 app.use("/get-owner-post", getPostOwner);
-app.use("/get-client-opinion", getClientOpinion);
+app.use("/get-clients-opinions", getCLientsOpinions);
 module.exports = app;
