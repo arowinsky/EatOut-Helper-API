@@ -14,10 +14,10 @@ router.post("/", (req, res) => {
     .then(post => {
       if (post.empty) {
         res.json({
-          post: false
+          clientsOpinions: false
         });
       } else {
-        const posts = post.docs.map(doc => {
+        const clientsOpinions = post.docs.map(doc => {
           const { author, clientOpinion, date } = doc.data();
           const newDate = date.toDate();
           const DateString = newDate.toISOString();
@@ -37,7 +37,7 @@ router.post("/", (req, res) => {
         });
 
         res.json({
-          posts: posts
+          clientsOpinions: clientsOpinions
         });
       }
     })
