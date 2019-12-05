@@ -4,8 +4,8 @@ const keys = require("./GoogleCloud.json");
 const { Storage } = cloud;
 const storage = new Storage(keys);
 const bucket = storage.bucket("eatout");
-const Blob = require("blob");
-const { format } = util;
+// const Blob = require("blob");
+// const { format } = util;
 
 const uploadImage = (file, name, idUser, idPlace) =>
   new Promise((resolve, reject) => {
