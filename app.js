@@ -50,16 +50,15 @@ app.use(
 const multerMid = multer({
   storage: multer.memoryStorage(),
   limits: {
-    fileSize: 10 * 1024 * 1024
+    fileSize: 5 * 1024 * 1024
   }
 });
 
 // app.disable('x-powered-by')
 app.use(
   multerMid.fields([
-    { name: "avatar", maxCount: 1 },
-    { name: "header", maxCount: 1 },
-    { name: "menu", maxCount: 1 }
+    { name: "photo", maxCount: 3 },
+    { name: "user", maxCount: 2 }
   ])
 );
 
