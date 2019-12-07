@@ -21,8 +21,6 @@ const addPosts = require("./controllers/addPostOwnerController");
 const generationCodeForClient = require("./controllers/generationCodeForClientController");
 const verificationClientCode = require("./controllers/verificationClientCodeController");
 const addClientOpinion = require("./controllers/addClientOpinionController");
-const getPostOwner = require("./controllers/getPostOwnerController");
-const getCLientsOpinions = require("./controllers/getClientsOpinonsController");
 const upload = require("./controllers/uploadImagesController");
 
 app.use(bodyParser.json());
@@ -75,6 +73,4 @@ app.use("/add-owner-post", addPosts);
 app.use("/generation-code-for-client", generationCodeForClient);
 app.use("/verification-client-code", verificationClientCode);
 app.use("/add-client-opinion", addClientOpinion);
-app.use("/get-owner-post", getPostOwner);
-app.use("/get-clients-opinions", getCLientsOpinions);
 module.exports = app;
