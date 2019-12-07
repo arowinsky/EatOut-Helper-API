@@ -11,9 +11,10 @@ router.post("/", async (req, res, next) => {
     const avatar = req.files.photo[0];
     const header = req.files.photo[1];
     const menu = req.files.photo[2];
-    
-    if(req.files.photo.length < 3 || req.body.user.length <2){
+
+    if (req.files.photo.length < 3 || req.body.user.length < 2) {
       res.json({
+
         noAllImagesSended:true
       })
     }
@@ -48,6 +49,7 @@ router.post("/", async (req, res, next) => {
     }
   }
       if(statusType === true){
+
         await uploadImg(avatar, "avatar.jpg", idUser, idPlace);
         await uploadImg(header, "header.jpg", idUser, idPlace);
         await uploadImg(menu, "menu.jpg", idUser, idPlace);
@@ -62,8 +64,8 @@ router.post("/", async (req, res, next) => {
         })
       }
     }
-  }catch (error) {
-    console.log(error)
+  } catch (error) {
+    console.log(error);
     res.send("error");
   }
 });
