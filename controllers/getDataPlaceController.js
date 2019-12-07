@@ -2,11 +2,11 @@ const express = require("express");
 const router = express.Router();
 const redis = require("redis");
 const redisClient = redis.createClient();
-const { db, admin} = require("../config/firebaseConfig");
-const getPlace = require('../getAll/getPlace');
-const getOpinion = require('../getAll/getClientOpinon');
-const getPostsOwner = require('../getAll/getPostsOwner');
-router.post("/", async (req, res) => { 
+const { db, admin } = require("../config/firebaseConfig");
+const getPlace = require("../getAll/getPlace");
+const getOpinion = require("../getAll/getClientOpinon");
+const getPostsOwner = require("../getAll/getPostsOwner");
+router.post("/", async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
 
   console.log(req.body);
@@ -14,20 +14,17 @@ router.post("/", async (req, res) => {
 
   const key = "sess:" + z;
   console.log(key);
-redisClient.get(key, async (err, red)=>{
-   red = JSON.parse(red);
-  const Place =  await getPlace(red.localId)
-  const Opinion = await getOpinion(Place)
-  const Posts = await getPostsOwner(Opinion)
-console.log('opinie', Place[0])
+  redisClient.get(key, async (err, red) => {
+    red = JSON.parse(red);
+    const Place = await getPlace(red.localId);
+    const Opinion = await getOpinion(Place);
+    const Posts = await getPostsOwner(Opinion);
+    console.log("opinie", Place);
 
-
-res.json({
-  send:Posts
-})
-
-})
-
+    res.json({
+      places: Posts
+    });
+  });
 });
 
 module.exports = router;
