@@ -19,7 +19,11 @@ router.post("/", async (req, res, next) => {
     }
     else{
       let statusType = true
-
+     let unavailable = {
+        erroravatar: false,
+        errorHeader: false,
+        errorMenu: false,
+      }
       for(let i = 0; i< req.files.photo.length; i++){
         if(req.files.photo[i].mimetype ===  'image/jpeg' || req.files.photo[i].mimetype ===  'image/png' ||req.files.photo[i].mimetype ===  'image/bmp' ){
         }
@@ -27,29 +31,20 @@ router.post("/", async (req, res, next) => {
           switch(i){
             case 0:
               statusType = false
-              res.json({
-              invalidFormatFile: "INVALID_AVATAR",
-              noValidFormatFiles:true,
-              })
+              unavailable.errorAvatar = true
             break;
 
             case 1 : 
               statusType = false
-              res.json({
-              invalidFormatFile: "INVALID_HEADER",
-              noValidFormatFiles:true,
-              })
+              unavailable.errorHeader = true
             break;
 
             case 2 : 
               statusType = false
-              res.json({
-                invalidFormatFile: "INVALID_MENU",
-                noValidFormatFiles:true,
-              })
+              unavailable.errorMenu = true
             break;
           }
-      break;
+  
     }
   }
       if(statusType === true){
@@ -60,6 +55,11 @@ router.post("/", async (req, res, next) => {
         res.json({
           uploadSuccess: true
         });
+      }
+      else{
+        res.json({
+          invalidFormatFile: unavailable
+        })
       }
     }
   }catch (error) {
