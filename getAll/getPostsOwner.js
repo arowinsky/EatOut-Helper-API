@@ -1,23 +1,22 @@
 const { db, admin} = require("../config/firebaseConfig");
 
     const postOwner = (places) => new Promise((resolve , reject) =>{
-let i = 0;
       
-      for(i ;i< places.length; i++){
+      for( let i = 0 ;i< places.length; i++){
 
         
-      const licznik = i
+    
   db.collection("eatingPlaces")
       .doc(places[i].id)
       .collection('postsOwner')
       .orderBy('date', "desc")
       .get()
       .then(post => {
-        if (post.empty) {
-            console.log('empty')
-          places[licznik].postsOwner = false
-        const NewPostsOwner = places
-        } else {
+        // if (post.empty) {
+        //     console.log('empty owner')
+        //   places[i].postsOwner = false
+        // const NewPostsOwner = places
+        // } else {
           const postsOwner = post.docs.map(doc => {
             const {
               author,
@@ -41,11 +40,11 @@ let i = 0;
             }
             return array;
           });
-
-          places[licznik].ownerPosts = postsOwner
+       
+          places[i].ownerPosts = postsOwner
         const NewPlace = places
          resolve(NewPlace)
-       }
+       //}
      })
     }
 })

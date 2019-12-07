@@ -1,23 +1,22 @@
 const { db, admin} = require("../config/firebaseConfig");
 
     const opinion = (places) => new Promise((resolve , reject) =>{
-let i = 0;
+
     
-      for(i ;i< places.length; i++){
+      for(let i=0 ;i< places.length; i++){
      
         
-      const licznik = i
+    
   db.collection("eatingPlaces")
       .doc(places[i].id)
       .collection('clientOpinions')
       .orderBy('date', "desc")
       .get()
       .then(post => {
-        if (post.empty) {
-            console.log('empty')
-          places[licznik].clientsOpinions = false
-        const NewPlace = places
-        } else {
+        // if (post.empty) {
+        //     console.log('empty opinion')
+        //   places[i].clientsOpinions = false
+        // } else {
           const clientOpinion = post.docs.map(doc => {
             const {
               author,
@@ -42,10 +41,10 @@ let i = 0;
             return array;
           });
 
-          places[licznik].clientsOpinions = clientOpinion
+          places[i].clientsOpinions = clientOpinion
         const NewPlace = places
          resolve(NewPlace)
-       }
+    // }
      })
     }
 })
