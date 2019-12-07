@@ -12,11 +12,12 @@ const { db, admin} = require("../config/firebaseConfig");
       .orderBy('date', "desc")
       .get()
       .then(post => {
-        // if (post.empty) {
-        //     console.log('empty owner')
-        //   places[i].postsOwner = false
-        // const NewPostsOwner = places
-        // } else {
+        if (post.empty) {
+            console.log('empty owner')
+          places[i].postsOwner = false
+        const NewPostsOwner = places
+        resolve(NewPostsOwner)
+        } else {
           const postsOwner = post.docs.map(doc => {
             const {
               author,
@@ -44,7 +45,7 @@ const { db, admin} = require("../config/firebaseConfig");
           places[i].ownerPosts = postsOwner
         const NewPlace = places
          resolve(NewPlace)
-       //}
+       }
      })
     }
 })

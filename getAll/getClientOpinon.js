@@ -13,10 +13,12 @@ const { db, admin} = require("../config/firebaseConfig");
       .orderBy('date', "desc")
       .get()
       .then(post => {
-        // if (post.empty) {
-        //     console.log('empty opinion')
-        //   places[i].clientsOpinions = false
-        // } else {
+        if (post.empty) {
+            console.log('empty opinion')
+          places[i].clientsOpinions = false
+          const newPlace = places;
+          resolve(newPlace)
+        } else {
           const clientOpinion = post.docs.map(doc => {
             const {
               author,
@@ -44,7 +46,7 @@ const { db, admin} = require("../config/firebaseConfig");
           places[i].clientsOpinions = clientOpinion
         const NewPlace = places
          resolve(NewPlace)
-    // }
+     }
      })
     }
 })

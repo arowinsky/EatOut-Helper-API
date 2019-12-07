@@ -14,9 +14,10 @@ router.post("/", async (req, res) => {
 
   const key = "sess:" + z;
   console.log(key);
-redisClient.get(key, async (err, red)=>{
-   red = JSON.parse(red);
-  const Place =  await getPlace(red.localId)
+//redisClient.get(key, async (err, red)=>{
+  // red = JSON.parse(red);
+ const w = "E8H5KGqs14bQJt1LorrTuCmkc812"
+  const Place =  await getPlace(w )
   const Opinion = await getOpinion(Place)
   const Posts = await getPostsOwner(Opinion)
 console.log('opinie', Place[0])
@@ -28,6 +29,6 @@ res.json({
 
 })
 
-});
+//});
 
 module.exports = router;
