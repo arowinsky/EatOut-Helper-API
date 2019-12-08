@@ -18,7 +18,7 @@ router.post("/", async (req, res, next) => {
       const header = req.files.photo[1];
       const menu = req.files.photo[2];
       let unavailable = {
-        erroravatar: false,
+        errorAvatar: false,
         errorHeader: false,
         errorMenu: false
       };
