@@ -141,15 +141,45 @@ router.post("/", (req, res) => {
               const header = req.files.photo[1];
               const menu = req.files.photo[2];
 
-              await uploadImg(avatar, "avatar.jpg", info.owner, idPlace.id);
-              await uploadImg(header, "header.jpg", info.owner, idPlace.id);
-              await uploadImg(menu, "menu.jpg", info.owner, idPlace.id);
+             const uploadAvatar = await uploadImg(avatar, "avatar.jpg", info.owner, idPlace.id);
+             const uploadHeader = await uploadImg(header, "header.jpg", info.owner, idPlace.id);
+             const uploadMenu  =  await uploadImg(menu, "menu.jpg", info.owner, idPlace.id);
 
-              console.log("Sent");
-              console.log(idPlace.id);
-              res.json({
-                addedEatingPlace: true,
-              });
+              if(uploadAvatar === true && uploadHeader===true && uploadMenu === true)
+              {
+                console.log("Sent");
+                console.log(uploadMenu, uploadHeader, uploadAvatar)
+                console.log(idPlace.id);
+                res.json({
+                  addedEatingPlace: true,
+                });
+              }
+              else
+              {
+                let uploadFail= {
+                  avatarFail = false,
+                  headerFail = false,
+                  menuFail = false,
+
+                }
+                if(uploadAvatar===false){
+                  uploadFail.avatar = true;
+                }
+                if(uploadHeader ===false)
+                {
+                  uploadFail.header = true;
+                }
+                if(uploadMenu === false){
+                  uploadFail.menu = true
+                }
+                console.log(uploadFail)
+                
+                res.json({
+                  notAddedEatingPlace  : uploadFail
+                })
+
+              }
+              
             })
             .catch(err => {
               res.json({

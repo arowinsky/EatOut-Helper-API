@@ -1,7 +1,6 @@
 const { db, admin} = require("../config/firebaseConfig");
 const getOpinion = require('./getClientOpinon')
     const place = (localId) => new Promise((resolve , reject) =>{
-localId = "E8H5KGqs14bQJt1LorrTuCmkc812"
     db.collection("eatingPlaces")
       .where("info.owner", "==", localId)
       .get()
