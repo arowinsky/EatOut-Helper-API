@@ -56,7 +56,8 @@ const multerMid = multer({
 app.use(
   multerMid.fields([
     { name: "photo", maxCount: 3 },
-    { name: "user", maxCount: 2 }
+    { name: "places", maxCount: 1 },
+    { name: "z", maxCount: 1 }
   ])
 );
 
