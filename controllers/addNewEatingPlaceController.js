@@ -157,9 +157,9 @@ router.post("/", (req, res) => {
               else
               {
                 let uploadFail= {
-                  avatarFail = false,
-                  headerFail = false,
-                  menuFail = false,
+                  avatarFail : false,
+                  headerFail : false,
+                  menuFail : false,
 
                 }
                 if(uploadAvatar===false){
