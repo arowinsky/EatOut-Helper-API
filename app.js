@@ -22,8 +22,6 @@ const generationCodeForClient = require("./controllers/generationCodeForClientCo
 const verificationClientCode = require("./controllers/verificationClientCodeController");
 const addClientOpinion = require("./controllers/addClientOpinionController");
 const upload = require("./controllers/uploadImagesController");
-const getOpinions = require('./controllers/getOpinionsControllers');
-const getPosts = require('./controllers/getPostsOwnerController');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -62,8 +60,6 @@ app.use(
     { name: "z", maxCount: 1 }
   ])
 );
-app.use("/get-opinions", getOpinions);
-app.use("/get-posts",getPosts)
 app.use("/upload-img", upload);
 app.use("/register", register);
 app.use("/reset-password", reset_password);
