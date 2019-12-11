@@ -18,11 +18,11 @@ const uploadImage = (file, name, idUser, idPlace) =>
     blobStream
       .on("finish", () => {
         console.log("upload complete");
-        resolve("complete");
+        resolve(true);
       })
       .on("error", error => {
         console.log(error);
-        resolve(`error with upload`, error);
+        resolve(false);
       })
       .end(buffer);
   });
