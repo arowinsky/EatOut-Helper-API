@@ -8,7 +8,7 @@ const app = express();
 const redis = require("redis");
 const redisStore = require("connect-redis")(session);
 const redisClient = redis.createClient();
-
+const userAction = require('./controllers/userAction/userAction')
 const register = require("./controllers/registerController");
 const reset_password = require("./controllers/resetPasswordController");
 const login = require("./controllers/emailLoginController");
@@ -73,4 +73,5 @@ app.use("/add-owner-post", addPosts);
 app.use("/generation-code-for-client", generationCodeForClient);
 app.use("/verification-client-code", verificationClientCode);
 app.use("/add-client-opinion", addClientOpinion);
+app.use("/user-action", userAction)
 module.exports = app;

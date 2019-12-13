@@ -1,19 +1,19 @@
 const express = require("express");
 const router = express.Router();
-const { db, admin} = require("../config/firebaseConfig");
+const { db, admin, auth } = require("../config/firebaseConfig");
 
-router.post("/", (req, res) => {
+router.get("/", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
 
-  const uid = req.body.uid;
+  const uid = 'dP6KZLwYh6eLw6egUE7tpOjIJBx1'
 
   admin
     .auth()
     .getUser(uid)
     .then(user => {
       res.json({
-        delete: "true"
-      });
+        users: user
+      })
     })
     .catch(err => {
       console.log(err);

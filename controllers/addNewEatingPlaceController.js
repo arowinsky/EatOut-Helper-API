@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const redis = require("redis");
 const redisClient = redis.createClient();
-const { db, admin } = require("../config/firebaseConfig");
+const { db, admin, auth } = require("../config/firebaseConfig");
 const uploadImg = require("../upload/upload");
 
 router.post("/", (req, res) => {
@@ -141,12 +141,11 @@ router.post("/", (req, res) => {
               const header = req.files.photo[1];
               const menu = req.files.photo[2];
 
-             const uploadAvatar = await uploadImg(avatar, "avatar.jpg", info.owner, idPlace.id);
-             const uploadHeader = await uploadImg(header, "header.jpg", info.owner, idPlace.id);
-             const uploadMenu  =  await uploadImg(menu, "menu.jpg", info.owner, idPlace.id);
+              const uploadAvatar = await uploadImg(avatar, "avatar.jpg", info.owner, idPlace.id);
+              const uploadHeader = await uploadImg(header, "header.jpg", info.owner, idPlace.id);
+              const uploadMenu = await uploadImg(menu, "menu.jpg", info.owner, idPlace.id);
 
-              if(uploadAvatar === true && uploadHeader===true && uploadMenu === true)
-              {
+              if (uploadAvatar === true && uploadHeader === true && uploadMenu === true) {
                 console.log("Sent");
                 console.log(uploadMenu, uploadHeader, uploadAvatar)
                 console.log(idPlace.id);
@@ -154,32 +153,30 @@ router.post("/", (req, res) => {
                   addedEatingPlace: true,
                 });
               }
-              else
-              {
-                let uploadFail= {
-                  avatarFail : false,
-                  headerFail : false,
-                  menuFail : false,
+              else {
+                let uploadFail = {
+                  avatarFail: false,
+                  headerFail: false,
+                  menuFail: false,
 
                 }
-                if(uploadAvatar===false){
+                if (uploadAvatar === false) {
                   uploadFail.avatar = true;
                 }
-                if(uploadHeader ===false)
-                {
+                if (uploadHeader === false) {
                   uploadFail.header = true;
                 }
-                if(uploadMenu === false){
+                if (uploadMenu === false) {
                   uploadFail.menu = true
                 }
                 console.log(uploadFail)
-                
+
                 res.json({
-                  notAddedEatingPlace  : uploadFail
+                  notAddedEatingPlace: uploadFail
                 })
 
               }
-              
+
             })
             .catch(err => {
               res.json({

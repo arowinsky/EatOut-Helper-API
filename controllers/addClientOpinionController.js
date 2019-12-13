@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { db, admin } = require("../config/firebaseConfig");
+const { db, admin, auth } = require("../config/firebaseConfig");
 const redis = require("redis");
 const redisClient = redis.createClient();
 
