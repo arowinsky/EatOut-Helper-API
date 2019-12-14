@@ -8,7 +8,7 @@ const app = express();
 const redis = require("redis");
 const redisStore = require("connect-redis")(session);
 const redisClient = redis.createClient();
-const verificationEmail = require('./controllers/userAction/veryEamil')
+const verificationEmail = require("./controllers/userAction/verificationEmail");
 const register = require("./controllers/registerController");
 const reset_password = require("./controllers/resetPasswordController");
 const login = require("./controllers/emailLoginController");
@@ -22,7 +22,7 @@ const generationCodeForClient = require("./controllers/generationCodeForClientCo
 const verificationClientCode = require("./controllers/verificationClientCodeController");
 const addClientOpinion = require("./controllers/addClientOpinionController");
 const upload = require("./controllers/uploadImagesController");
-const resetPasswordFirebase = require("./controllers/userAction/resetPassword")
+const resetPasswordFirebase = require("./controllers/userAction/resetPassword");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParse());
@@ -73,6 +73,6 @@ app.use("/add-owner-post", addPosts);
 app.use("/generation-code-for-client", generationCodeForClient);
 app.use("/verification-client-code", verificationClientCode);
 app.use("/add-client-opinion", addClientOpinion);
-app.use("/verification-email", verificationEmail)
-app.use("/reset-password-firebase", resetPasswordFirebase)
+app.use("/verification-email", verificationEmail);
+app.use("/reset-password-firebase", resetPasswordFirebase);
 module.exports = app;
