@@ -8,9 +8,9 @@ const app = express();
 const redis = require("redis");
 const redisStore = require("connect-redis")(session);
 const redisClient = redis.createClient();
-
+const verificationEmail = require("./controllers/userAction/verificationEmail");
 const register = require("./controllers/registerController");
-const reset_password = require("./controllers/resetPasswordController");
+const send_mail_to_reset_password = require("./controllers/sendMailResetPasswordController");
 const login = require("./controllers/emailLoginController");
 const autoLogin = require("./controllers/autoLoginController");
 const logOut = require("./controllers/logOutController");
@@ -22,7 +22,7 @@ const generationCodeForClient = require("./controllers/generationCodeForClientCo
 const verificationClientCode = require("./controllers/verificationClientCodeController");
 const addClientOpinion = require("./controllers/addClientOpinionController");
 const upload = require("./controllers/uploadImagesController");
-
+const resetPassword = require("./controllers/userAction/resetPassword");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParse());
@@ -62,7 +62,7 @@ app.use(
 );
 app.use("/upload-img", upload);
 app.use("/register", register);
-app.use("/reset-password", reset_password);
+app.use("/send-mail-to-reset-password", send_mail_to_reset_password);
 app.use("/loginEmail", login);
 app.use("/autoLogin", autoLogin);
 app.use("/logout", logOut);
@@ -73,4 +73,6 @@ app.use("/add-owner-post", addPosts);
 app.use("/generation-code-for-client", generationCodeForClient);
 app.use("/verification-client-code", verificationClientCode);
 app.use("/add-client-opinion", addClientOpinion);
+app.use("/verification-email", verificationEmail);
+app.use("/reset-password", resetPassword);
 module.exports = app;
