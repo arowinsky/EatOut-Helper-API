@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const uploadImg = require("../upload/upload");
+const uploadImg = require("../../upload/upload");
 
 router.post("/", async (req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");

@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 const redis = require("redis");
 const redisClient = redis.createClient();
-const { db, admin, auth } = require("../config/firebaseConfig");
-const uploadImg = require("../upload/upload");
+const { db, admin, auth } = require("../../config/firebaseConfig");
+const uploadImg = require("../../upload/upload");
 
 router.post("/", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -17,8 +17,7 @@ router.post("/", (req, res) => {
     res.json({
       noAllImagesSended: true
     });
-  }
-  else {
+  } else {
     let unavailable = {
       errorAvatar: false,
       errorHeader: false,
@@ -53,8 +52,8 @@ router.post("/", (req, res) => {
       redisClient.get("sess:" + req.body.z, (err, user) => {
         user = JSON.parse(user);
         try {
-          const txt = req.body.places
-          const data = JSON.parse(txt)
+          const txt = req.body.places;
+          const data = JSON.parse(txt);
           //console.log(data)
           const info = {
             owner: user.localId,
@@ -136,30 +135,46 @@ router.post("/", (req, res) => {
               facilities
             })
             .then(async idPlace => {
-
               const avatar = req.files.photo[0];
               const header = req.files.photo[1];
               const menu = req.files.photo[2];
 
-              const uploadAvatar = await uploadImg(avatar, "avatar.jpg", info.owner, idPlace.id);
-              const uploadHeader = await uploadImg(header, "header.jpg", info.owner, idPlace.id);
-              const uploadMenu = await uploadImg(menu, "menu.jpg", info.owner, idPlace.id);
+              const uploadAvatar = await uploadImg(
+                avatar,
+                "avatar.jpg",
+                info.owner,
+                idPlace.id
+              );
+              const uploadHeader = await uploadImg(
+                header,
+                "header.jpg",
+                info.owner,
+                idPlace.id
+              );
+              const uploadMenu = await uploadImg(
+                menu,
+                "menu.jpg",
+                info.owner,
+                idPlace.id
+              );
 
-              if (uploadAvatar === true && uploadHeader === true && uploadMenu === true) {
+              if (
+                uploadAvatar === true &&
+                uploadHeader === true &&
+                uploadMenu === true
+              ) {
                 console.log("Sent");
-                console.log(uploadMenu, uploadHeader, uploadAvatar)
+                console.log(uploadMenu, uploadHeader, uploadAvatar);
                 console.log(idPlace.id);
                 res.json({
-                  addedEatingPlace: true,
+                  addedEatingPlace: true
                 });
-              }
-              else {
+              } else {
                 let uploadFail = {
                   avatarFail: false,
                   headerFail: false,
-                  menuFail: false,
-
-                }
+                  menuFail: false
+                };
                 if (uploadAvatar === false) {
                   uploadFail.avatar = true;
                 }
@@ -167,21 +182,19 @@ router.post("/", (req, res) => {
                   uploadFail.header = true;
                 }
                 if (uploadMenu === false) {
-                  uploadFail.menu = true
+                  uploadFail.menu = true;
                 }
-                console.log(uploadFail)
+                console.log(uploadFail);
 
                 res.json({
                   notAddedEatingPlace: uploadFail
-                })
-
+                });
               }
-
             })
             .catch(err => {
               res.json({
                 addedEatingPlace: false
-              })
+              });
               console.log("no added", err);
             });
 
@@ -192,8 +205,7 @@ router.post("/", (req, res) => {
           });
         }
       });
-    }
-    else {
+    } else {
       res.json({
         invalidFormatFile: unavailable
       });
