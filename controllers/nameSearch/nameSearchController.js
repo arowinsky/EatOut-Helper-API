@@ -19,7 +19,7 @@ router.get("/", async (req, res) => {
 
 
     res.json({
-      send: Posts
+      matchingPlaces: Posts
     })
 
 
