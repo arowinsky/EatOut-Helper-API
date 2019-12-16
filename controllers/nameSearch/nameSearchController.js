@@ -1,29 +1,33 @@
 const express = require("express");
 const router = express.Router();
 const { db, admin, auth } = require("../../config/firebaseConfig");
-router.get("/", (req, res) => {
+
+const getPlace = require("./getData/getPlace");
+const getOpinion = require("./getData/getClientOpinon");
+const getPostsOwner = require("./getData/getPostsOwner");
+
+router.get("/", async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  const map = null;
+
   const name = req.query.name.charAt(0).toUpperCase() + req.query.name.slice(1);
   console.log(name);
-  db.collection("eatingPlaces")
-    .where("info.restaurantName", "==", name)
-    .get()
-    .then(query => {
-      if (query.empty) {
-        console.log("No matching documents.");
-        return;
-      }
-      const array = query.docs.map(doc => {
-        const values = { id: doc.id, ...doc.data() };
+  try {
 
-        return values;
-      });
-      res.json({ searchedData: array });
+    const Place = await getPlace(name);
+    const Opinion = await getOpinion(Place);
+    const Posts = await getPostsOwner(Opinion);
+
+
+    res.json({
+      send: Posts
     })
-    .catch(err => {
-      console.log("Error getting documents", err);
-    });
+
+
+
+  } catch (error) {
+    console.log(error)
+  }
+
 });
 
 module.exports = router;
