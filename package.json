@@ -1,14 +1,10 @@
 {
-  "name": "eatout_node",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "httpsgithub.comxsior18EatOut_Node.git"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
   },
   "author": "ML",
   "license": "ISC",
@@ -24,6 +20,7 @@
     "firebase": "^7.5.0",
     "firebase-admin": "^8.8.0",
     "multer": "^1.4.2",
+    "nodemon": "^2.0.2",
     "randomstring": "^1.1.5",
     "redis": "^2.8.0",
     "util": "^0.12.1"
