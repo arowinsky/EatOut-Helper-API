@@ -23,6 +23,7 @@ const verificationClientCode = require("./controllers/verificationClientCode/ver
 const addClientOpinion = require("./controllers/addClientOpinion/addClientOpinionController");
 const upload = require("./controllers/uploadImages/uploadImagesController");
 const resetPassword = require("./controllers/userAction/resetPasswordController");
+const nameSearch = require("./controllers/nameSearch/nameSearchController");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParse());
@@ -75,4 +76,5 @@ app.use("/verification-client-code", verificationClientCode);
 app.use("/add-client-opinion", addClientOpinion);
 app.use("/verification-email", verificationEmail);
 app.use("/reset-password", resetPassword);
+app.use("/name-search", nameSearch);
 module.exports = app;
