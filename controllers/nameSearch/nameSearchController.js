@@ -5,22 +5,38 @@ const { db, admin, auth } = require("../../config/firebaseConfig");
 const getPlace = require("./getData/getPlace");
 const getOpinion = require("./getData/getClientOpinon");
 const getPostsOwner = require("./getData/getPostsOwner");
-
+const redis = require("redis");
+const redisClient = redis.createClient();
 router.get("/", async (req, res) => {
+  const checFunction = (value) => {
+
+    return value != null
+  }
   res.setHeader("Access-Control-Allow-Origin", "*");
 
   const name = req.query.name.charAt(0).toUpperCase() + req.query.name.slice(1);
   console.log(name);
   try {
+let sendArray =[]
+    redisClient.get('places', (err, date) => {
+      const dates = JSON.parse(date);
+      console.log(dates.length)
+      for(let i=0; i<dates.length;i++){
+        if (dates[i].name.substring(0, name.length) == name) {
+        
+          sendArray[i]={id: dates[i].id,
+            name:dates[i].name  
+          }
+        }
+      }
+const NewArray = sendArray.filter(checFunction)
 
-    const Place = await getPlace(name);
-    const Opinion = await getOpinion(Place);
-    const Posts = await getPostsOwner(Opinion);
-
-
-    res.json({
-      matchingPlaces: Posts
+      res.json({
+        matchingPlaces: NewArray
+      })
     })
+
+
 
 
 

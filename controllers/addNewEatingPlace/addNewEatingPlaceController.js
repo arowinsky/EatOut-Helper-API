@@ -75,6 +75,8 @@ router.post("/", (req, res) => {
               data.restaurantName.charAt(0).toUpperCase() +
               data.restaurantName.slice(1),
             restaurantStreet: data.restaurantStreet,
+            restaurantBuildingNumber: data.restaurantBuildingNumber,
+            restaurantCity: data.restaurantCity,
             restaurantEmail: data.restaurantEmail,
             restaurantPhoneNumber: data.restaurantPhoneNumber
           };
