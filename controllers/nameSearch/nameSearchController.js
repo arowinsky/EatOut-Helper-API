@@ -23,9 +23,14 @@ let sendArray =[]
       console.log(dates.length)
       for(let i=0; i<dates.length;i++){
         if (dates[i].name.substring(0, name.length) == name) {
+          console.log(dates[i])
         
           sendArray[i]={id: dates[i].id,
-            name:dates[i].name  
+            name:dates[i].name ,
+            restaurantStreet: dates[i].restaurantStreet,
+            restaurantBuildingNumber:dates[i].restaurantBuildingNumber,
+            restaurantCity:dates[i].restaurantCity,
+            avatar:dates[i].avatar
           }
         }
       }
