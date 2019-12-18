@@ -36,7 +36,8 @@ router.post("/", (req, res) => {
                 firstName: firstname,
                 lastName: lastname,
                 username: username,
-                userData: firstname + " " + lastname
+                userData: firstname + " " + lastname,
+                role: 'client'
               })
               .then(() => {
                 axios({
