@@ -24,10 +24,6 @@ const addClientOpinion = require("./controllers/addClientOpinion/addClientOpinio
 const upload = require("./controllers/uploadImages/uploadImagesController");
 const resetPassword = require("./controllers/userAction/resetPasswordController");
 const nameSearch = require("./controllers/nameSearch/nameSearchController");
-const addFollow = require('./controllers/followPlaces/addToFollowController');
-const removeFollow = require('./controllers/followPlaces/removeFromFollowController');
-
-
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
