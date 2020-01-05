@@ -82,6 +82,4 @@ app.use("/add-client-opinion", addClientOpinion);
 app.use("/verification-email", verificationEmail);
 app.use("/reset-password", resetPassword);
 app.use("/name-search", nameSearch);
-app.use("/add-follow", addFollow);
-app.use("/remove-follow", removeFollow);
 module.exports = app;
