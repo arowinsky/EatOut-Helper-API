@@ -24,7 +24,6 @@ const addClientOpinion = require("./controllers/addClientOpinion/addClientOpinio
 const upload = require("./controllers/uploadImages/uploadImagesController");
 const resetPassword = require("./controllers/userAction/resetPasswordController");
 const nameSearch = require("./controllers/nameSearch/nameSearchController");
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParse());
