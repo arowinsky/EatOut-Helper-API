@@ -44,11 +44,13 @@ router.post("/", (req, res) => {
               console.log(req.sessionID);
               let localId = user.data.localId;
               req.session.username = doc.data().username;
+              req.session.rule = doc.data().rule
               res.json({
                 status: true,
                 name: userData,
                 idSession: req.sessionID,
-                userId: localId
+                userId: localId,
+                userRule: doc.data().rule,
               });
             });
         }
