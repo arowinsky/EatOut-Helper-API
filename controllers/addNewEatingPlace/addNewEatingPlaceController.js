@@ -4,7 +4,7 @@ const redis = require("redis");
 const redisClient = redis.createClient();
 const { db, admin, auth } = require("../../config/firebaseConfig");
 const uploadImg = require("../../upload/upload");
-
+const deleteImg = require('../../upload/deleteFile');
 router.post("/", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
 
@@ -159,7 +159,7 @@ router.post("/", (req, res) => {
                 info.owner,
                 idPlace.id
               );
-
+               
               if (
                 uploadAvatar === true &&
                 uploadHeader === true &&
@@ -186,11 +186,23 @@ router.post("/", (req, res) => {
                 if (uploadMenu === false) {
                   uploadFail.menu = true;
                 }
-                console.log(uploadFail);
 
-                res.json({
-                  notAddedEatingPlace: uploadFail
+
+                db.collection('eatingPlaces').doc(idPlace.id).delete().then(async ()=>{
+                  await deleteImg('avatar.jpg',info.owner, idPlace.id)
+                  await deleteImg('header.jpg',info.owner, idPlace.id)
+                  await deleteImg('menu.jpg',info.owner, idPlace.id)
+
+
+                  res.json({
+                    notAddedEatingPlace: uploadFail
+                  });
                 });
+
+
+          
+
+
               }
             })
             .catch(err => {
