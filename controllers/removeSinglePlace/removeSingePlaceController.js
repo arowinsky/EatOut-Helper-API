@@ -3,7 +3,7 @@ const router = express.Router();
 const redis = require("redis");
 const redisClient = redis.createClient();
 const { db, admin, auth } = require("../../config/firebaseConfig");
-
+const deleteImg = require('./deleteImg');
 router.delete("/", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
 
@@ -22,7 +22,11 @@ router.delete("/", (req, res) => {
 
         if(red.localId === doc.data().info.owner ){
 
-            db.collection('eatingPlaces').doc(id).delete().then(()=>{
+            db.collection('eatingPlaces').doc(id).delete().then(async()=>{
+
+                await deleteImg('avatar.jpg', red.localId, id)
+                await deleteImg('header.jpg', red.localId, id)
+                await deleteImg('menu.jpg', red.localId, id)
 
                 res.json({
                     removePlace: true,
