@@ -31,7 +31,7 @@ const redisClient = redis.createClient()
           )
          let  RedisPlaces = JSON.stringify(Places)
         redisClient.set('places',RedisPlaces , 'Ex', 3600 ) 
-          console.log(Places)
+         // console.log(Places)
           resolve(Places)
         }
       })

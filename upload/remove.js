@@ -1,10 +1,10 @@
 const cloud = require("@google-cloud/storage");
-const keys = require("../../upload/GoogleCloud.json");
+const keys = require("./GoogleCloud.json");
 const { Storage } = cloud;
 const storage = new Storage(keys);
 const bucket = storage.bucket("eatout");
 
-const deleteImage = ( name , idUser, idPlace) =>
+const removeImage = ( name , idUser, idPlace) =>
   new Promise((resolve, reject) => {
       try{
     bucket.file(`${idUser}/${idPlace}/${name}`).delete();
@@ -16,4 +16,4 @@ const deleteImage = ( name , idUser, idPlace) =>
     resolve(true)
     
   });
-module.exports = deleteImage;
+module.exports = removeImage;
