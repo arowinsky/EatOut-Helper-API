@@ -9,19 +9,17 @@ const getPostsOwner = require("../../getSingle/getPostOwnerSingle");
 router.post("/", async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
 
+  const id = req.body.placeId;
+  const Place = await getPlace(id);
+  //console.log(Place)
+  const Opinion = await getOpinion(Place);
+  console.log(Opinion);
+  const Posts = await getPostsOwner(Opinion);
+  //console.log("opinie", Place);
 
-  const id = req.body.id;
-    const Place = await getPlace(id);
-    //console.log(Place)
-    const Opinion = await getOpinion(Place);
-    console.log(Opinion)
-    const Posts = await getPostsOwner(Opinion);
-    //console.log("opinie", Place);
-
-    res.json({
-      places: Posts
-    });
-  
+  res.json({
+    places: Posts
+  });
 });
 
 module.exports = router;
