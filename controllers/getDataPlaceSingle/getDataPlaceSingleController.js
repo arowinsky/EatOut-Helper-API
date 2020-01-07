@@ -18,7 +18,7 @@ router.post("/", async (req, res) => {
   //console.log("opinie", Place);
 
   res.json({
-    places: Posts
+    place: Posts
   });
 });
 
