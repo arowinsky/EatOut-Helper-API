@@ -29,6 +29,14 @@ router.post("/", (req, res) => {
 })
     .then(()=>{
 
+        db.collection('users').doc(red.localId).collection('follow').get()
+        .then(follow =>{
+            follow.forEach(doc=>{
+                db.collection('users').doc(red.localId)
+                .collection('follow').doc(doc.id).delete();
+            })
+        })
+
         db.collection('users').doc(red.localId).delete()
        admin.auth().deleteUser(red.localId).then(()=>{
            redisClient.del(key)
