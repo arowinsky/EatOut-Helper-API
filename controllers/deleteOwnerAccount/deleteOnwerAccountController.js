@@ -17,11 +17,35 @@ router.post("/", (req, res) => {
 
     db.collection("eatingPlaces").where('info.owner','==', red.localId).get()
     .then((places)=>{
-        places.forEach(doc=>{
-            db.collection("eatingPlaces").doc(doc.id).delete().then(async()=>{
-                await removeImages('avatar.jpg', red.localId, doc.id);
-                await removeImages('header.jpg', red.localId, doc.id);
-                await removeImages('menu.jpg', red.localId, doc.id);
+        places.forEach(Places=>{
+           
+           
+            db.collectionGroup('follow').where('placeId', '==', Places.id).get()
+            .then(follow =>{     
+                follow.forEach((Follow) =>{
+                db.collection('users').doc(Follow.data().uid).collection('follow').doc(Follow.id).delete();
+                })
+            })
+
+            db.collection('eatingPlaces').doc(Places.id).collection('postsOwner').get()
+            .then((posts)=>{
+                posts.forEach(Posts=>{
+                db.collection('eatingPlaces').doc(Places.id).collection('postsOwner').doc(Posts.id).delete();
+            })
+        })
+
+            db.collection('eatingPlaces').doc(Places.id).collection('clientOpinions').get()
+            .then((opinion)=>{
+                opinion.forEach(Opinion=>{
+                db.collection('eatingPlaces').doc(Places.id).collection('clientOpinions').doc(Opinion.id).delete();
+            })
+        })
+
+
+            db.collection("eatingPlaces").doc(Places.id).delete().then(async()=>{
+                await removeImages('avatar.jpg', red.localId, Places.id);
+                await removeImages('header.jpg', red.localId, Places.id);
+                await removeImages('menu.jpg', red.localId, Places.id);
 
 
             })
@@ -30,10 +54,9 @@ router.post("/", (req, res) => {
     .then(()=>{
 
         db.collection('users').doc(red.localId).collection('follow').get()
-        .then(follow =>{
-            follow.forEach(doc=>{
-                db.collection('users').doc(red.localId)
-                .collection('follow').doc(doc.id).delete();
+            .then((follow)=>{
+                follow.forEach(Follow=>{
+                db.collection('users').doc(red.localId).collection('follow').doc(Follow.id).delete();
             })
         })
 

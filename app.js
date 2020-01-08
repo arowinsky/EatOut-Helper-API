@@ -78,5 +78,5 @@ app.use("/add-client-opinion", addClientOpinion);
 app.use("/verification-email", verificationEmail);
 app.use("/reset-password", resetPassword);
 app.use("/name-search", nameSearch);
-app.use("/delete-owner-account", deleteOwnerAccount)
+app.use("/delete-owner-account", deleteOwnerAccount);
 module.exports = app;
