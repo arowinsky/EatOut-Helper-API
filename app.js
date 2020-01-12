@@ -25,6 +25,7 @@ const upload = require("./controllers/uploadImages/uploadImagesController");
 const resetPassword = require("./controllers/userAction/resetPasswordController");
 const nameSearch = require("./controllers/nameSearch/nameSearchController");
 const getDataPlaceSingle = require("./controllers/getDataPlaceSingle/getDataPlaceSingleController");
+const loginSocialMedia = require('./controllers/loginFbAndGooleController/loginFbAndGoogleController')
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParse());
@@ -79,4 +80,5 @@ app.use("/verification-email", verificationEmail);
 app.use("/reset-password", resetPassword);
 app.use("/name-search", nameSearch);
 app.use("/get-data-place-single", getDataPlaceSingle);
+app.use("/login-social-media", loginSocialMedia)
 module.exports = app;
