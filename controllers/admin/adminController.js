@@ -5,13 +5,15 @@ const { db, admin, auth } = require("../../config/firebaseConfig");
 router.get("/", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
 
-  const uid = "esQWDvSANgOpyNSnSnQEv5l9JuE3";
+  const uid = "Ii8t0OZ88TRI5tnD6SwP8NOSw3q1";
 
   admin
     .auth()
-    .getUser(uid)
+    .updateUser(uid, {
+      disabled: false
+    })
     .then(user => {
-      console.log(user);
+      console.log(user.toJSON());
       res.json({
         users: user
       });
