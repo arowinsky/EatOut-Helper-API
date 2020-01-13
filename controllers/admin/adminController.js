@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
 
   admin
     .auth()
-    .getUser(uid)
+    .updateUser(uid, {})
     .then(user => {
       console.log(user);
       res.json({
