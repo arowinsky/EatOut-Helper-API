@@ -23,7 +23,9 @@ router.post("/", (req, res) => {
       errorHeader: false,
       errorMenu: false
     };
+
     for (let i = 0; i < req.files.photo.length; i++) {
+      console.log(req.files.photo[i]);
       if (
         req.files.photo[i].mimetype === "image/jpeg" ||
         req.files.photo[i].mimetype === "image/png" ||
@@ -196,16 +198,16 @@ router.post("/", (req, res) => {
                     await deleteImg("menu.jpg", info.owner, idPlace.id);
 
                     res.json({
-                      notAddedEatingPlace: uploadFail
+                      notAddedNewPlace: uploadFail
                     });
                   });
               }
             })
             .catch(err => {
+              console.log("no added in catch before res", err);
               res.json({
                 addedEatingPlace: false
               });
-              console.log("no added", err);
             });
 
           ////////////////try catch
