@@ -28,13 +28,13 @@ router.post("/", (req, res) => {
             .set(followPlace)
             .then(() => {
                 res.json({
-                    addFollow: true
+                    userFollowing:true
                 })
             })
             .catch(error => {
                 console.log(error);
                 res.json({
-                    addFollow: false
+                    userFollowing:false
                 })
             })
 
