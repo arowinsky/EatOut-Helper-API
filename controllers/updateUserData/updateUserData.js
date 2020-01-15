@@ -10,14 +10,18 @@ router.post("/", (req, res) => {
     const key = 'sess:' + req.body.z
 
 
-    redisClient(key, (error, data) => {
+    redisClient.get(key, (error, data) => {
         data = JSON.parse(data);
-        const userData = req.body.firstName + req.body.lastName;
+        const userData = req.body.firstName+" "+req.body.lastName;
         db.collection('users').doc(data.localId).update({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             userData: userData,
             username: req.body.username,
+        }).then(()=>{
+            res.json({
+                updateData: true
+            })
         })
 
     })
