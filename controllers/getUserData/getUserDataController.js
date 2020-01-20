@@ -7,35 +7,25 @@ const { db, admin, auth } = require("../../config/firebaseConfig");
 router.post("/", async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
 
-  const key = 'sess:' + req.body.z;
+  const key = "sess:" + req.body.z;
 
-  redisClient(key, (error, data) => {
+  redisClient.get(key, (error, data) => {
     data = JSON.parse(data);
 
-    db.collection("users").doc(data.localId)
+    db.collection("users")
+      .doc(data.localId)
       .get()
-      .then((user) => {
-
+      .then(user => {
         res.json({
-          firstName = user.data().firstName,
-          lastName = user.data().lastName,
-          username = user.data().username,
-        })
+          firstName: user.data().firstName,
+          lastName: user.data().lastName,
+          username: user.data().username
+        });
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
-      })
-
-  })
-
-
+      });
+  });
 });
 
 module.exports = router;
-
-
-/*
-lokale obserwowane
-
-
-*/
