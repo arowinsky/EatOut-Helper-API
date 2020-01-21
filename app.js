@@ -82,5 +82,4 @@ app.use("/reset-password", resetPassword);
 app.use("/name-search", nameSearch);
 app.use("/get-data-place-single", getDataPlaceSingle);
 app.use("/get-user-data", getUserData);
-app.use("/get-user-follow", getUserFollow);
 module.exports = app;
