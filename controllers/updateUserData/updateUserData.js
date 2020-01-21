@@ -20,7 +20,11 @@ router.post("/", (req, res) => {
             username: req.body.username,
         }).then(()=>{
             res.json({
-                updateData: true
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                userData: userData,
+                username: req.body.username,
+                updateBasicData: true
             })
         })
 

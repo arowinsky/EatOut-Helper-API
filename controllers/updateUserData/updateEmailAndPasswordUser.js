@@ -19,7 +19,7 @@ if(req.body.password === null)
     .then(user => {
         console.log(user);
         res.json({
-            updateUser:true,
+            updateEamil:true,
             users: user
         });
     })
@@ -35,7 +35,7 @@ if(req.body.password === null)
     .then(user => {
         console.log(user);
         res.json({
-            updateUser:true,
+            updatePassword:true,
             users: user
         });
     })
@@ -43,16 +43,18 @@ if(req.body.password === null)
         console.log(err);
     });
 }
-else{
+else if(req.body.email != null && req.body.password != null){
     admin
     .auth()
     .updateUser(uid, {
+        email: req.body.email,
         password: req.body.password
     })
     .then(user => {
         console.log(user);
         res.json({
-            updateUser:true,
+            updateEamil:true,
+            updatePassword:true,
             users: user
         });
     })
