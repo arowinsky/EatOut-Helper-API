@@ -26,7 +26,6 @@ const resetPassword = require("./controllers/userAction/resetPasswordController"
 const nameSearch = require("./controllers/nameSearch/nameSearchController");
 const getDataPlaceSingle = require("./controllers/getDataPlaceSingle/getDataPlaceSingleController");
 const getUserData = require("./controllers/getUserData/getUserDataController");
-const getUserFollow = require("./controllers/getUserData/getFollowController");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParse());
