@@ -19,7 +19,8 @@ router.post("/", async (req, res) => {
         res.json({
           firstName: user.data().firstName,
           lastName: user.data().lastName,
-          username: user.data().username
+          username: user.data().username,
+          email: data.email
         });
       })
       .catch(error => {
