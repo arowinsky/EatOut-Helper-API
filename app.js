@@ -24,12 +24,10 @@ const upload = require("./controllers/uploadImages/uploadImagesController");
 const resetPassword = require("./controllers/userAction/resetPasswordController");
 const nameSearch = require("./controllers/nameSearch/nameSearchController");
 const getDataPlaceSingle = require("./controllers/getDataPlaceSingle/getDataPlaceSingleController");
-<<<<<<< HEAD
+const getUserData = require("./controllers/getUserData/getUserDataController");
 const updateFirebaseUserData = require("./controllers/updateUserData/updateUserData");
 const updateDataLogin = require("./controllers/updateUserData/updateEmailAndPasswordUser");
-=======
-const getUserData = require("./controllers/getUserData/getUserDataController");
->>>>>>> 4dd1ea98a40707cc18d85c65cf9646d73131eb82
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParse());
