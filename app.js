@@ -16,7 +16,6 @@ const autoLogin = require("./controllers/autoLogin/autoLoginController");
 const logOut = require("./controllers/logOut/logOutController");
 const addNewEatingPlace = require("./controllers/addNewEatingPlace/addNewEatingPlaceController");
 const getDataPlace = require("./controllers/getDataPlace/getDataPlaceController");
-const deleteUser = require("./controllers/admin/adminController");
 const addPosts = require("./controllers/addPostOwner/addPostOwnerController");
 const generationCodeForClient = require("./controllers/generationCodeForClient/generationCodeForClientController");
 const verificationClientCode = require("./controllers/verificationClientCode/verificationClientCodeController");
@@ -25,8 +24,12 @@ const upload = require("./controllers/uploadImages/uploadImagesController");
 const resetPassword = require("./controllers/userAction/resetPasswordController");
 const nameSearch = require("./controllers/nameSearch/nameSearchController");
 const getDataPlaceSingle = require("./controllers/getDataPlaceSingle/getDataPlaceSingleController");
+<<<<<<< HEAD
 const updateFirebaseUserData = require("./controllers/updateUserData/updateUserData");
 const updateDataLogin = require("./controllers/updateUserData/updateEmailAndPasswordUser");
+=======
+const getUserData = require("./controllers/getUserData/getUserDataController");
+>>>>>>> 4dd1ea98a40707cc18d85c65cf9646d73131eb82
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParse());
@@ -72,7 +75,6 @@ app.use("/autoLogin", autoLogin);
 app.use("/logout", logOut);
 app.use("/add-new-eating-place", addNewEatingPlace);
 app.use("/get-data-place", getDataPlace);
-app.use("/delete-user", deleteUser);
 app.use("/add-owner-post", addPosts);
 app.use("/generation-code-for-client", generationCodeForClient);
 app.use("/verification-client-code", verificationClientCode);
@@ -81,6 +83,8 @@ app.use("/verification-email", verificationEmail);
 app.use("/reset-password", resetPassword);
 app.use("/name-search", nameSearch);
 app.use("/get-data-place-single", getDataPlaceSingle);
+app.use("/get-user-data", getUserData);
 app.use("/update-firebase-user-data", updateFirebaseUserData);
 app.use("/update-login-user-data", updateDataLogin);
+
 module.exports = app;
