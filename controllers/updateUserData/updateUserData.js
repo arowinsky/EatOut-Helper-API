@@ -12,6 +12,7 @@ router.post("/", (req, res) => {
 
     redisClient.get(key, (error, data) => {
         data = JSON.parse(data);
+        console.log(data)
         const userData = req.body.firstName+" "+req.body.lastName;
         db.collection('users').doc(data.localId).update({
             firstName: req.body.firstName,
@@ -19,6 +20,13 @@ router.post("/", (req, res) => {
             userData: userData,
             username: req.body.username,
         }).then(()=>{
+
+            data.userData = userData;
+            data.username = req.body.username;
+            data = JSON.stringify(data);
+            redisClient.set(key, data)
+            
+
             res.json({
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
