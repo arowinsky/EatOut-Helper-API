@@ -4,7 +4,7 @@ const getPlacesFromFirebaseToRedis = require('./getPlacesFromFirebaseToRedis');
 
 
 
-const SerchPlacesForRedisController = async ()=>{
+const SearchPlacesForRedisController = async ()=>{
 
 const Place = await getPlacesFromFirebaseToRedis();
 var interval = setInterval(getPlacesFromFirebaseToRedis, 3600*1000)
@@ -13,4 +13,4 @@ var interval = setInterval(getPlacesFromFirebaseToRedis, 3600*1000)
 //   redisClient.set('places',Place , 'Ex', 3600 ) 
 
 };
-module.exports = SerchPlacesForRedisController;
+module.exports = SearchPlacesForRedisController;

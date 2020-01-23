@@ -4,7 +4,7 @@ const redis = require("redis");
 const redisClient = redis.createClient();
 const { db, admin, auth } = require("../../config/firebaseConfig");
 const uploadImg = require("../../upload/upload");
-
+const deleteImg = require("../../upload/deleteFile");
 router.post("/", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
 
@@ -23,7 +23,9 @@ router.post("/", (req, res) => {
       errorHeader: false,
       errorMenu: false
     };
+
     for (let i = 0; i < req.files.photo.length; i++) {
+      console.log(req.files.photo[i]);
       if (
         req.files.photo[i].mimetype === "image/jpeg" ||
         req.files.photo[i].mimetype === "image/png" ||
@@ -178,26 +180,34 @@ router.post("/", (req, res) => {
                   menuFail: false
                 };
                 if (uploadAvatar === false) {
-                  uploadFail.avatar = true;
+                  uploadFail.avatarFail = true;
                 }
                 if (uploadHeader === false) {
-                  uploadFail.header = true;
+                  uploadFail.headerFail = true;
                 }
                 if (uploadMenu === false) {
-                  uploadFail.menu = true;
+                  uploadFail.menuFail = true;
                 }
-                console.log(uploadFail);
 
-                res.json({
-                  notAddedEatingPlace: uploadFail
-                });
+                db.collection("eatingPlaces")
+                  .doc(idPlace.id)
+                  .delete()
+                  .then(async () => {
+                    await deleteImg("avatar.jpg", info.owner, idPlace.id);
+                    await deleteImg("header.jpg", info.owner, idPlace.id);
+                    await deleteImg("menu.jpg", info.owner, idPlace.id);
+
+                    res.json({
+                      notAddedNewPlace: uploadFail
+                    });
+                  });
               }
             })
             .catch(err => {
+              console.log("no added in catch before res", err);
               res.json({
                 addedEatingPlace: false
               });
-              console.log("no added", err);
             });
 
           ////////////////try catch
