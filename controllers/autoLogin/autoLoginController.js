@@ -18,6 +18,7 @@ router.post("/", (req, res) => {
           if (err === null) {
             console.log("Resend" + userData);
             res.json({
+              userRule: dates.rule,
               userInfo: userData,
               userId: dates.localId
             });
