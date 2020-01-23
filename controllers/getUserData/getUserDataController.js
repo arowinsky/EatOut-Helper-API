@@ -10,22 +10,26 @@ router.post("/", async (req, res) => {
   const key = "sess:" + req.body.z;
 
   redisClient.get(key, (error, data) => {
-    data = JSON.parse(data);
-    console.log("dupa dupa", data);
-    db.collection("users")
-      .doc(data.localId)
-      .get()
-      .then(user => {
-        res.json({
-          firstName: user.data().firstName,
-          lastName: user.data().lastName,
-          username: user.data().username,
-          email: data.email
+    try {
+      data = JSON.parse(data);
+      console.log("dupa dupa", data);
+      db.collection("users")
+        .doc(data.localId)
+        .get()
+        .then(user => {
+          res.json({
+            firstName: user.data().firstName,
+            lastName: user.data().lastName,
+            username: user.data().username,
+            email: data.email
+          });
+        })
+        .catch(error => {
+          console.log(error);
         });
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    } catch (error) {
+      res.json({ error: "error redis" });
+    }
   });
 });
 
