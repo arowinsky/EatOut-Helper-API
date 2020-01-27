@@ -4,6 +4,10 @@ const redis = require("redis");
 const redisClient = redis.createClient();
 const { db, admin, auth } = require("../../config/firebaseConfig");
 const deleteImg = require("./deleteImg");
+const getPlace = require("../../getAll/getPlace");
+const getOpinion = require("../../getAll/getClientOpinon");
+const getPostsOwner = require("../../getAll/getPostsOwner");
+
 router.post("/", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
 
@@ -29,7 +33,13 @@ router.post("/", (req, res) => {
               await deleteImg("header.jpg", red.localId, id);
               await deleteImg("menu.jpg", red.localId, id);
 
+              const Place = await getPlace(red.localId);
+              const Opinion = await getOpinion(Place);
+              const Posts = await getPostsOwner(Opinion);
+
+
               res.json({
+                places: Posts,
                 removePlace: true
               });
             });
