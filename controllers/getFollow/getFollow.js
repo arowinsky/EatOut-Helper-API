@@ -7,35 +7,40 @@ router.post("/", (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
 
     console.log(req.body);
-    const z = req.body.z;
+    const { z } = req.body
 
     const key = "sess:" + z;
     console.log(key);
     redisClient.get(key, (err, data) => {
-        data = JSON.parse(data);
+        try {
+            data = JSON.parse(data);
 
-        db.collection("users").doc(data.localId).collection("follow").get()
-            .then(follow => {
-                const Follow = follow.docs.map(follows => {
-                    const {
-                        placeId,
-                        placeName,
-                    } = follows.data()
+            db.collection("users").doc(data.localId).collection("follow").get()
+                .then(follow => {
+                    const Follow = follow.docs.map(follows => {
+                        const {
+                            placeId,
+                            placeName,
+                        } = follows.data()
 
-                    const array = {
-                        placeId: placeId,
-                        placeName: placeName
-                    }
+                        const array = {
+                            placeId: placeId,
+                            placeName: placeName
+                        }
 
-                    return (array)
+                        return (array)
+                    })
+                    res.json({
+                        follow: Follow
+                    });
+
                 })
-                res.json({
-                    follow: Follow
-                });
-
+        }
+        catch (error) {
+            res.json({
+                error: "I don't reading data from redis"
             })
-
-
+        }
     });
 });
 
