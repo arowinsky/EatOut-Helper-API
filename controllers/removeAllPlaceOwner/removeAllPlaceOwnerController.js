@@ -37,7 +37,8 @@ router.post("/", (req, res) => {
               });
           });
           res.json({
-            removeAllPlace: true
+            removeAllPlace: true,
+            ownerPlaces: null
           });
         }
       })
