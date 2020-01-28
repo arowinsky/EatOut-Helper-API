@@ -34,14 +34,21 @@ router.post("/", (req, res) => {
               await deleteImg("menu.jpg", red.localId, id);
 
               const Place = await getPlace(red.localId);
+              if(Place != null){
               const Opinion = await getOpinion(Place);
               const Posts = await getPostsOwner(Opinion);
-
-
               res.json({
-                places: Posts,
+                ownerPlaces: Posts,
                 removePlace: true
               });
+              }
+              else{
+
+              res.json({
+                ownerPlaces: null,
+                removePlace: true
+              });
+            }
             });
         } else {
           res.json({
