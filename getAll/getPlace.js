@@ -6,7 +6,7 @@ const getOpinion = require('./getClientOpinon')
       .get()
       .then( async (places) => {
         if (places.empty) {
-            resolve('empty places')
+            resolve(null)
         } else {
            const Places = await places.docs.map( doc => {
             const {
