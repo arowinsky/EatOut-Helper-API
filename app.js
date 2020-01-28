@@ -30,6 +30,8 @@ const deleteClientAccount = require("./controllers/deleteClientAccount/deleteCli
 const updateFirebaseUserData = require("./controllers/updateUserData/updateUserData");
 const updateDataLogin = require("./controllers/updateUserData/updateEmailAndPasswordUser");
 const removeSinglePlace = require("./controllers/removeSinglePlace/removeSingePlaceController");
+const removeAllPlaceOwner = require("./controllers/removeAllPlaceOwner/removeAllPlaceOwnerController");
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParse());
@@ -89,5 +91,6 @@ app.use("/delete-client-account", deleteClientAccount);
 app.use("/update-firebase-user-data", updateFirebaseUserData);
 app.use("/update-login-user-data", updateDataLogin);
 app.use("/remove-single-place", removeSinglePlace);
+app.use("/remove-all-place-owner", removeAllPlaceOwner);
 
 module.exports = app;
