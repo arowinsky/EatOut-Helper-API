@@ -8,8 +8,7 @@ router.post("/", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
 
   console.log(req.body);
-  const z = req.body.z;
-  const username = req.body.username;
+  const { z } = req.body;
 
   const key = "sess:" + z;
 
