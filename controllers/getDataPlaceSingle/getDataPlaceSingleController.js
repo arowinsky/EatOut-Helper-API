@@ -17,8 +17,18 @@ router.post("/", async (req, res) => {
   //console.log(Opinion);
   const Posts = await getPostsOwner(Opinion);
   //console.log("opinie", Place);
+console.log('z',z)
+  if (z === 'null' || z === 'undefined'){
+
+    res.json({
+      place: Posts
+    });
+
+  }
+  else{
 const key = "sess:"+z
   redisClient.get(key, (error, data)=>{
+    try{
     data = JSON.parse(data);
     console.log("ssss", placeId)
 
@@ -37,8 +47,12 @@ const key = "sess:"+z
         });
       }
     })
+  }
+  catch(error){
+    console.log('error redis')
+  }
   })
-
+}
 
 
 });
