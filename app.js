@@ -16,7 +16,6 @@ const autoLogin = require("./controllers/autoLogin/autoLoginController");
 const logOut = require("./controllers/logOut/logOutController");
 const addNewEatingPlace = require("./controllers/addNewEatingPlace/addNewEatingPlaceController");
 const getDataPlace = require("./controllers/getDataPlace/getDataPlaceController");
-const deleteUser = require("./controllers/admin/adminController");
 const addPosts = require("./controllers/addPostOwner/addPostOwnerController");
 const generationCodeForClient = require("./controllers/generationCodeForClient/generationCodeForClientController");
 const verificationClientCode = require("./controllers/verificationClientCode/verificationClientCodeController");
@@ -24,10 +23,16 @@ const addClientOpinion = require("./controllers/addClientOpinion/addClientOpinio
 const upload = require("./controllers/uploadImages/uploadImagesController");
 const resetPassword = require("./controllers/userAction/resetPasswordController");
 const nameSearch = require("./controllers/nameSearch/nameSearchController");
-const addFollow = require('./controllers/followPlaces/addToFollowController');
-const removeFollow = require('./controllers/followPlaces/removeFromFollowController');
-
-
+const deleteOwnerAccount = require("./controllers/deleteOwnerAccount/deleteOnwerAccountController");
+const getDataPlaceSingle = require("./controllers/getDataPlaceSingle/getDataPlaceSingleController");
+const getUserData = require("./controllers/getUserData/getUserDataController");
+const deleteClientAccount = require("./controllers/deleteClientAccount/deleteClinetAccountController");
+const updateFirebaseUserData = require("./controllers/updateUserData/updateUserData");
+const updateDataLogin = require("./controllers/updateUserData/updateEmailAndPasswordUser");
+const removeSinglePlace = require("./controllers/removeSinglePlace/removeSingePlaceController");
+const removeAllPlaceOwner = require("./controllers/removeAllPlaceOwner/removeAllPlaceOwnerController");
+const addFollow = require("./controllers/followPlaces/addToFollowController");
+const removeFollow = require("./controllers/followPlaces/removeFromFollowController");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -74,7 +79,6 @@ app.use("/autoLogin", autoLogin);
 app.use("/logout", logOut);
 app.use("/add-new-eating-place", addNewEatingPlace);
 app.use("/get-data-place", getDataPlace);
-app.use("/delete-user", deleteUser);
 app.use("/add-owner-post", addPosts);
 app.use("/generation-code-for-client", generationCodeForClient);
 app.use("/verification-client-code", verificationClientCode);
@@ -82,6 +86,15 @@ app.use("/add-client-opinion", addClientOpinion);
 app.use("/verification-email", verificationEmail);
 app.use("/reset-password", resetPassword);
 app.use("/name-search", nameSearch);
+app.use("/delete-owner-account", deleteOwnerAccount);
+app.use("/get-data-place-single", getDataPlaceSingle);
+app.use("/get-user-data", getUserData);
+app.use("/delete-client-account", deleteClientAccount);
+app.use("/update-firebase-user-data", updateFirebaseUserData);
+app.use("/update-login-user-data", updateDataLogin);
+app.use("/remove-single-place", removeSinglePlace);
+app.use("/remove-all-place-owner", removeAllPlaceOwner);
 app.use("/add-follow", addFollow);
 app.use("/remove-follow", removeFollow);
+
 module.exports = app;
