@@ -31,6 +31,8 @@ const updateFirebaseUserData = require("./controllers/updateUserData/updateUserD
 const updateDataLogin = require("./controllers/updateUserData/updateEmailAndPasswordUser");
 const removeSinglePlace = require("./controllers/removeSinglePlace/removeSingePlaceController");
 const removeAllPlaceOwner = require("./controllers/removeAllPlaceOwner/removeAllPlaceOwnerController");
+const addFollow = require("./controllers/followPlaces/addToFollowController");
+const removeFollow = require("./controllers/followPlaces/removeFromFollowController");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -92,5 +94,7 @@ app.use("/update-firebase-user-data", updateFirebaseUserData);
 app.use("/update-login-user-data", updateDataLogin);
 app.use("/remove-single-place", removeSinglePlace);
 app.use("/remove-all-place-owner", removeAllPlaceOwner);
+app.use("/add-follow", addFollow);
+app.use("/remove-follow", removeFollow);
 
 module.exports = app;
