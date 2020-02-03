@@ -10,17 +10,23 @@ router.post("/", (req, res) => {
 
 
     redisClient.get(key, (err, data) => {
-
+try{
         const user = JSON.parse(data);
         const PlaceId = req.body.placeId;
         const PlaceName = req.body.placeName
 
-        let followPlace = {
-            placeId: PlaceId,
-            placeName: PlaceName,
-            uid: user.localId,
-        }
+ 
 
+        db.collection('eatingPlaces').doc(PlaceId).get()
+        .then(place=>{
+
+            const owner = place.data().info.owner
+            let followPlace = {
+                placeId: PlaceId,
+                placeName: PlaceName,
+                uid: user.localId,
+                avatar: `https://storage.cloud.google.com/eatout/${owner}/${PlaceId}/avatar.jpg`
+            }
         db.collection('users')
             .doc(user.localId)
             .collection('follow')
@@ -37,7 +43,11 @@ router.post("/", (req, res) => {
                     userFollowing:false
                 })
             })
-
+        })
+    }
+    catch(error){
+        console.log('wrong z')
+    }
     })
 
 });
