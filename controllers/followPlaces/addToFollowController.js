@@ -5,6 +5,7 @@ const redis = require("redis");
 const redisClient = redis.createClient();
 
 router.post("/", (req, res) => {
+
     res.setHeader("Access-Control-Allow-Origin", "*");
     const key = 'sess:' + req.body.z;
 
@@ -15,11 +16,8 @@ try{
         const PlaceId = req.body.placeId;
         const PlaceName = req.body.placeName
 
- 
-
         db.collection('eatingPlaces').doc(PlaceId).get()
         .then(place=>{
-
             const owner = place.data().info.owner
             let followPlace = {
                 placeId: PlaceId,
@@ -49,6 +47,5 @@ try{
         console.log('wrong z')
     }
     })
-
 });
-module.exports = router; 
+module.exports = router;
