@@ -21,11 +21,13 @@ router.post("/", (req, res) => {
                         const {
                             placeId,
                             placeName,
+                            avatar
                         } = follows.data()
 
                         const array = {
                             placeId: placeId,
-                            placeName: placeName
+                            placeName: placeName,
+                            avatar
                         }
 
                         return (array)
