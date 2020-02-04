@@ -30,6 +30,7 @@ const deleteClientAccount = require("./controllers/deleteClientAccount/deleteCli
 const updateFirebaseUserData = require("./controllers/updateUserData/updateUserData");
 const updateDataLogin = require("./controllers/updateUserData/updateEmailAndPasswordUser");
 const getFollow = require("./controllers/getFollow/getFollow")
+const checkFollow = require("./controllers/toCheckFollow/toChekFollowController")
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParse());
@@ -88,5 +89,6 @@ app.use("/get-user-data", getUserData);
 app.use("/delete-client-account", deleteClientAccount);
 app.use("/update-firebase-user-data", updateFirebaseUserData);
 app.use("/update-login-user-data", updateDataLogin);
-app.use("/get-follow", getFollow)
+app.use("/get-follow", getFollow);
+app.use("/check-follow", checkFollow);
 module.exports = app;
