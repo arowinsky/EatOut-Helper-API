@@ -29,6 +29,10 @@ const getUserData = require("./controllers/getUserData/getUserDataController");
 const deleteClientAccount = require("./controllers/deleteClientAccount/deleteClinetAccountController");
 const updateFirebaseUserData = require("./controllers/updateUserData/updateUserData");
 const updateDataLogin = require("./controllers/updateUserData/updateEmailAndPasswordUser");
+const removeSinglePlace = require("./controllers/removeSinglePlace/removeSingePlaceController");
+const removeAllPlaceOwner = require("./controllers/removeAllPlaceOwner/removeAllPlaceOwnerController");
+const addFollow = require("./controllers/followPlaces/addToFollowController");
+const removeFollow = require("./controllers/followPlaces/removeFromFollowController");
 const getFollow = require("./controllers/getFollow/getFollow")
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -88,5 +92,13 @@ app.use("/get-user-data", getUserData);
 app.use("/delete-client-account", deleteClientAccount);
 app.use("/update-firebase-user-data", updateFirebaseUserData);
 app.use("/update-login-user-data", updateDataLogin);
+<<<<<<< HEAD
 app.use("/get-follow", getFollow)
+=======
+app.use("/remove-single-place", removeSinglePlace);
+app.use("/remove-all-place-owner", removeAllPlaceOwner);
+app.use("/add-follow", addFollow);
+app.use("/remove-follow", removeFollow);
+
+>>>>>>> dcad91da5afca3ca29316dd9825489770be43705
 module.exports = app;
