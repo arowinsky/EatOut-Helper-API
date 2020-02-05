@@ -33,7 +33,7 @@ const removeSinglePlace = require("./controllers/removeSinglePlace/removeSingePl
 const removeAllPlaceOwner = require("./controllers/removeAllPlaceOwner/removeAllPlaceOwnerController");
 const addFollow = require("./controllers/followPlaces/addToFollowController");
 const removeFollow = require("./controllers/followPlaces/removeFromFollowController");
-const getFollow = require("./controllers/getFollow/getFollow");
+const getFollowingPlaces = require("./controllers/getFollowingPlaces/getFollowingPlaces");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParse());
@@ -96,5 +96,5 @@ app.use("/remove-single-place", removeSinglePlace);
 app.use("/remove-all-place-owner", removeAllPlaceOwner);
 app.use("/add-follow", addFollow);
 app.use("/remove-follow", removeFollow);
-app.use("/get-follow", getFollow);
+app.use("/get-following-places", getFollowingPlaces);
 module.exports = app;
