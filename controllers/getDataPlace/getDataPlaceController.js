@@ -17,13 +17,19 @@ router.post("/", async (req, res) => {
   redisClient.get(key, async (err, red) => {
     red = JSON.parse(red);
     const Place = await getPlace(red.localId);
-    const Opinion = await getOpinion(Place);
-    const Posts = await getPostsOwner(Opinion);
-    console.log("opinie", Place);
-
+    if(Place != null){
+      const Opinion = await getOpinion(Place);
+      const Posts = await getPostsOwner(Opinion);
+      res.json({
+        places: Posts
+      });
+    }
+    else{
     res.json({
-      places: Posts
+      places: null
     });
+
+  }
   });
 });
 
