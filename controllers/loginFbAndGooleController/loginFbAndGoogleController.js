@@ -42,7 +42,7 @@ router.post("/", (req, res) => {
             req.session.localId=uid;
             req.session.username= displayName;
             req.session.userData = displayName;
-            req.session.rule = 'client'
+            req.session.rule = user.data().rule;
           
             res.json({
               status: true,
