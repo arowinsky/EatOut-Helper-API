@@ -21,7 +21,6 @@ router.get("/", (req, res) => {
             });
           }
           if (err != null) {
-            console.log("error: sesssion TimeOut");
             res.json({
               session: "TimeOut"
             });
