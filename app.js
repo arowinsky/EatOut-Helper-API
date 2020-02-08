@@ -25,6 +25,7 @@ const resetPassword = require("./controllers/userAction/resetPasswordController"
 const nameSearch = require("./controllers/nameSearch/nameSearchController");
 const deleteOwnerAccount = require("./controllers/deleteOwnerAccount/deleteOnwerAccountController");
 const getDataPlaceSingle = require("./controllers/getDataPlaceSingle/getDataPlaceSingleController");
+const loginSocialMedia = require('./controllers/loginFbAndGooleController/loginFbAndGoogleController')
 const getUserData = require("./controllers/getUserData/getUserDataController");
 const deleteClientAccount = require("./controllers/deleteClientAccount/deleteClinetAccountController");
 const updateFirebaseUserData = require("./controllers/updateUserData/updateUserData");
@@ -89,6 +90,7 @@ app.use("/reset-password", resetPassword);
 app.use("/name-search", nameSearch);
 app.use("/delete-owner-account", deleteOwnerAccount);
 app.use("/get-data-place-single", getDataPlaceSingle);
+app.use("/login-social-media", loginSocialMedia)
 app.use("/get-user-data", getUserData);
 app.use("/delete-client-account", deleteClientAccount);
 app.use("/update-firebase-user-data", updateFirebaseUserData);
