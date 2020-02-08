@@ -6,7 +6,6 @@ const redisClient = redis.createClient();
 router.get("/", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   const { id, reSend } = req.query;
-  console.log(req.query);
   if (id != "null") {
     if (id != "undefined" && reSend) {
       const key = "sess:" + id;
@@ -15,7 +14,6 @@ router.get("/", (req, res) => {
           const dates = JSON.parse(date);
           const userData = dates.userData;
           if (err === null) {
-            console.log("Resend" + userData);
             res.json({
               userRule: dates.rule,
               userInfo: userData,
@@ -23,13 +21,13 @@ router.get("/", (req, res) => {
             });
           }
           if (err != null) {
-            console.log("error");
+            console.log("error: sesssion TimeOut");
             res.json({
               session: "TimeOut"
             });
           }
         } catch (e) {
-          console.log("bład");
+          console.log("error: wrong z");
           res.json({
             session: "wrong_Z"
           });
