@@ -5,8 +5,6 @@ const axios = require("axios");
 const { db, admin, auth } = require("../../config/firebaseConfig");
 router.post("/", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  console.log('weszło')
-    console.log(req.body)
   const uid = req.body.uid;
   const displayName = req.body.displayName;
   const token = req.body.token;

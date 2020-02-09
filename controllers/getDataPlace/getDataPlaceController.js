@@ -8,12 +8,8 @@ const getOpinion = require("../../getAll/getClientOpinon");
 const getPostsOwner = require("../../getAll/getPostsOwner");
 router.post("/", async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-
-  console.log(req.body);
   const z = req.body.z;
-
   const key = "sess:" + z;
-  console.log(key);
   redisClient.get(key, async (err, red) => {
     red = JSON.parse(red);
     const Place = await getPlace(red.localId);

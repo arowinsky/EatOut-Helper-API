@@ -10,7 +10,6 @@ router.post("/", (req, res) => {
   const clientOpinion = req.body.clientOpinion;
   const z = "sess:" + req.body.z;
   const eatingPlaceId = req.body.eatingPlaceId;
-  console.log(z);
   redisClient.get(z, (err, session) => {
     session = JSON.parse(session);
     try {
@@ -33,7 +32,6 @@ router.post("/", (req, res) => {
             .get()
             .then(opinion => {
               if (opinion.empty) {
-                console.log("empty");
               }
               const clientOpinion = opinion.docs.map(doc => {
                 const { author, clientOpinion, date } = doc.data();

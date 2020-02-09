@@ -2,12 +2,11 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios");
 const { db, admin, auth } = require("../../config/firebaseConfig");
-router.get("/", (req, res) => {
+router.post("/", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  console.log(req.query);
   const authData = {
-    email: req.query.email,
-    password: req.query.password,
+    email: req.body.email,
+    password: req.body.password,
     returnSecureToken: true
   };
   axios

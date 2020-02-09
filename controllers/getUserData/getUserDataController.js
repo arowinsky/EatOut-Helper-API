@@ -4,10 +4,9 @@ const redis = require("redis");
 const redisClient = redis.createClient();
 const { db, admin, auth } = require("../../config/firebaseConfig");
 
-router.post("/", async (req, res) => {
+router.get("/", async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  console.log(req.body.z);
-  const key = "sess:" + req.body.z;
+  const key = "sess:" + req.query.z;
 
   redisClient.get(key, (error, data) => {
     try {

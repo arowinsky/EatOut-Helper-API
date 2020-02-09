@@ -8,8 +8,6 @@ const deleteImg = require("../../upload/deleteFile");
 router.post("/", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
 
-  // console.log(req.files)
-  // console.log(req.body)
   let statusType = true;
 
   if (req.files.photo === null || req.files.photo === undefined) {
@@ -25,7 +23,6 @@ router.post("/", (req, res) => {
     };
 
     for (let i = 0; i < req.files.photo.length; i++) {
-      console.log(req.files.photo[i]);
       if (
         req.files.photo[i].mimetype === "image/jpeg" ||
         req.files.photo[i].mimetype === "image/png" ||
@@ -56,7 +53,6 @@ router.post("/", (req, res) => {
         try {
           const txt = req.body.places;
           const data = JSON.parse(txt);
-          //console.log(data)
           const info = {
             owner: user.localId,
             mondayOpenHour: data.mondayOpenHour,
@@ -110,14 +106,12 @@ router.post("/", (req, res) => {
             polska: data.polska,
             wege_wegan: data.wege_wegan
           };
-          //console.log(kitchen);
           const opportunity = {
             sniadanie: data.śniadanie,
             lunch: data.lunch,
             randka: data.randka,
             pub: data.pub
           };
-          //console.log(opportunity);
           const facilities = {
             wifi: data.wifi,
             przystosowanie_dla_osob_niepelnosprawnych:
@@ -129,7 +123,6 @@ router.post("/", (req, res) => {
             ogrodek: data.ogródek,
             animal_friendly: data.animal_friendly
           };
-          // console.log(facilities);
           db.collection("eatingPlaces")
             .add({
               info,
@@ -167,9 +160,6 @@ router.post("/", (req, res) => {
                 uploadHeader === true &&
                 uploadMenu === true
               ) {
-                console.log("Sent");
-                console.log(uploadMenu, uploadHeader, uploadAvatar);
-                console.log(idPlace.id);
                 res.json({
                   addedEatingPlace: true
                 });
@@ -210,7 +200,7 @@ router.post("/", (req, res) => {
               });
             });
 
-          ////////////////try catch
+
         } catch (error) {
           res.json({
             error: "Error redis"
