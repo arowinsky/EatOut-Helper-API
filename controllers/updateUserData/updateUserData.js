@@ -9,7 +9,7 @@ router.post("/", (req, res) => {
 
   const key = "sess:" + req.body.z;
   console.log("body", req.body);
-  redisClient.get(key, (error, data) => {
+  redisClient.put(key, (error, data) => {
     data = JSON.parse(data);
     console.log(data);
     const userData = req.body.firstName + " " + req.body.lastName;

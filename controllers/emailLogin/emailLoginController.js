@@ -2,12 +2,12 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios");
 const { db, admin, auth } = require("../../config/firebaseConfig");
-router.post("/", (req, res) => {
+router.get("/", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  console.log(req.body);
+  console.log(req.query);
   const authData = {
-    email: req.body.email,
-    password: req.body.password,
+    email: req.query.email,
+    password: req.query.password,
     returnSecureToken: true
   };
   axios
@@ -24,8 +24,6 @@ router.post("/", (req, res) => {
           idToken: user.data.idToken
         }
       }).then(users => {
-        console.log(users.data.users[0].emailVerified);
-
         if (users.data.users[0].emailVerified === false) {
           res.json({
             emailUnverified: true
@@ -41,16 +39,15 @@ router.post("/", (req, res) => {
             .then(doc => {
               let userData = doc.data().userData;
               req.session.userData = userData;
-              console.log(req.sessionID);
               let localId = user.data.localId;
               req.session.username = doc.data().username;
-              req.session.rule = doc.data().rule
+              req.session.rule = doc.data().rule;
               res.json({
                 status: true,
                 name: userData,
                 idSession: req.sessionID,
                 userId: localId,
-                userRule: doc.data().rule,
+                userRule: doc.data().rule
               });
             });
         }
