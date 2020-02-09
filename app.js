@@ -4,7 +4,7 @@ const cookieParse = require("cookie-parser");
 const session = require("express-session");
 const multer = require("multer");
 const app = express();
-
+const cors = require('cors')
 const redis = require("redis");
 const redisStore = require("connect-redis")(session);
 const redisClient = redis.createClient();
@@ -39,7 +39,7 @@ const checkFollowingPlaces = require("./controllers/checkFollowingPlaces/checkFo
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParse());
-
+app.use(cors())
 redisClient.on("error", err => {
   console.log("Redis error: ", err);
 });
@@ -101,4 +101,10 @@ app.use("/add-follow", addFollow);
 app.use("/remove-follow", removeFollow);
 app.use("/get-following-places", getFollowingPlaces);
 app.use("/check-following-places", checkFollowingPlaces);
+app.delete("/test", (req,res) =>{
+
+  res.json({test:"udany"})
+
+})
+
 module.exports = app;
