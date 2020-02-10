@@ -4,7 +4,7 @@ const { db, admin, auth } = require("../../config/firebaseConfig");
 
 router.get("/", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  const clientCode = req.query.clientCode;
+  const { clientCode } = req.query;
   db.collection("codes")
     .where("code", "==", clientCode)
     .get()
