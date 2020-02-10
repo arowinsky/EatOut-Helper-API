@@ -4,18 +4,16 @@ const axios = require("axios");
 const { db, admin, auth } = require("../../config/firebaseConfig");
 
 router.post("/", (req, res) => {
-  const firstname = req.body.firstName;
-  const lastname = req.body.lastName;
-  const username = req.body.userName;
+  const { firstName, lastName, userName, email, password } = req.body;
   const authData = {
-    email: req.body.email,
-    password: req.body.password
+    email: email,
+    password: password
   };
 
   res.setHeader("Access-Control-Allow-Origin", "*");
 
   db.collection("users")
-    .where("username", "==", username)
+    .where("username", "==", userName)
     .get()
     .then(docs => {
       if (docs.size >= 1) {
@@ -32,11 +30,11 @@ router.post("/", (req, res) => {
             db.collection("users")
               .doc(response.data.localId)
               .set({
-                firstName: firstname,
-                lastName: lastname,
-                username: username,
-                userData: firstname + " " + lastname,
-                rule: 'client',
+                firstName: firstName,
+                lastName: lastName,
+                username: userName,
+                userData: firstName + " " + lastName,
+                rule: "client"
               })
               .then(() => {
                 axios({
