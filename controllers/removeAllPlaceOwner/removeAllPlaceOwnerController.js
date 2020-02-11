@@ -4,22 +4,18 @@ const redis = require("redis");
 const redisClient = redis.createClient();
 const { db, admin, auth } = require("../../config/firebaseConfig");
 const deleteImages = require("./deleteImg");
-router.post("/", (req, res) => {
+router.delete("/:z", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-
-  console.log(req.body);
-  const { z } = req.body;
-
+  const { z } = req.params;
   const key = "sess:" + z;
-
   redisClient.get(key, (err, red) => {
     red = JSON.parse(red);
-
     db.collection("eatingPlaces")
       .where("info.owner", "==", red.localId)
       .get()
       .then(docs => {
         if (docs.empty) {
+          console.log("docs are empty");
           res.json({
             removeAllPlace: false,
             message: "0 docs"
@@ -42,6 +38,7 @@ router.post("/", (req, res) => {
         }
       })
       .catch(error => {
+        console.log(error);
         res.json({ removeAllPlace: false });
       });
   });

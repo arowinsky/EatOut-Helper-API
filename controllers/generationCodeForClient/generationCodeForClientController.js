@@ -7,7 +7,6 @@ router.post("/", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
 
   const { eatingPlaceId } = req.body;
-  console.log(eatingPlaceId);
 
   const newCode = () => {
     const codei = randomstring.generate({

@@ -8,18 +8,12 @@ const getPlace = require("../../getAll/getPlace");
 const getOpinion = require("../../getAll/getClientOpinon");
 const getPostsOwner = require("../../getAll/getPostsOwner");
 
-router.post("/", (req, res) => {
+router.delete("/:z/:id", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-
-  console.log("Remove place", req.body);
-  const z = req.body.z;
-  const id = req.body.id;
-
+  const { z, id } = req.params;
   const key = "sess:" + z;
-
   redisClient.get(key, (err, red) => {
     red = JSON.parse(red);
-    console.log("LokalId w redisie", red.localId);
     db.collection("eatingPlaces")
       .doc(id)
       .get()
@@ -34,21 +28,19 @@ router.post("/", (req, res) => {
               await deleteImg("menu.jpg", red.localId, id);
 
               const Place = await getPlace(red.localId);
-              if(Place != null){
-              const Opinion = await getOpinion(Place);
-              const Posts = await getPostsOwner(Opinion);
-              res.json({
-                ownerPlaces: Posts,
-                removePlace: true
-              });
+              if (Place != null) {
+                const Opinion = await getOpinion(Place);
+                const Posts = await getPostsOwner(Opinion);
+                res.json({
+                  ownerPlaces: Posts,
+                  removePlace: true
+                });
+              } else {
+                res.json({
+                  ownerPlaces: null,
+                  removePlace: true
+                });
               }
-              else{
-
-              res.json({
-                ownerPlaces: null,
-                removePlace: true
-              });
-            }
             });
         } else {
           res.json({

@@ -3,11 +3,9 @@ const router = express.Router();
 const redis = require("redis");
 const redisClient = redis.createClient();
 
-router.post("/", (req, res) => {
+router.get("/", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  const id = req.body.sid;
-  const reSend = req.body.pleaseReSend;
-  console.log(req.body);
+  const { id, reSend } = req.query;
   if (id != "null") {
     if (id != "undefined" && reSend) {
       const key = "sess:" + id;
@@ -16,7 +14,6 @@ router.post("/", (req, res) => {
           const dates = JSON.parse(date);
           const userData = dates.userData;
           if (err === null) {
-            console.log("Resend" + userData);
             res.json({
               userRule: dates.rule,
               userInfo: userData,
@@ -24,13 +21,12 @@ router.post("/", (req, res) => {
             });
           }
           if (err != null) {
-            console.log("error");
             res.json({
               session: "TimeOut"
             });
           }
         } catch (e) {
-          console.log("bład");
+          console.log("error: wrong z");
           res.json({
             session: "wrong_Z"
           });

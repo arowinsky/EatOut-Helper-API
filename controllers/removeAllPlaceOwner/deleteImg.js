@@ -4,16 +4,12 @@ const { Storage } = cloud;
 const storage = new Storage(keys);
 const bucket = storage.bucket("eatout");
 
-const deleteImage = ( name , idUser, idPlace) =>
+const deleteImage = (name, idUser, idPlace) =>
   new Promise((resolve, reject) => {
-      try{
-    bucket.file(`${idUser}/${idPlace}/${name}`).delete();
-      }
-      catch(error){
-          
-      }
-    
-    resolve(true)
-    
+    try {
+      bucket.file(`${idUser}/${idPlace}/${name}`).delete();
+    } catch (error) {}
+
+    resolve(true);
   });
 module.exports = deleteImage;

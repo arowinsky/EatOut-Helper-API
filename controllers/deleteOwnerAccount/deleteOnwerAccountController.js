@@ -4,17 +4,12 @@ const redis = require("redis");
 const redisClient = redis.createClient();
 const { db, admin, auth } = require("../../config/firebaseConfig");
 const removeImages = require("../../upload/deleteFile");
-router.post("/", (req, res) => {
+router.delete("/:z", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-
-  console.log(req.body);
-  const z = req.body.z;
-
+  const z = req.params.z;
   const key = "sess:" + z;
-  console.log(key);
   redisClient.get(key, (err, red) => {
     red = JSON.parse(red);
-
     db.collection("eatingPlaces")
       .where("info.owner", "==", red.localId)
       .get()
