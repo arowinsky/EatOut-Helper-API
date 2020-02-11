@@ -32,7 +32,8 @@ router.post("/", (req, res) => {
             .set(followPlace)
             .then(() => {
               res.json({
-                userFollowing: true
+                userFollowing: true,
+                followingPlaceId: followPlace.placeId
               });
             })
             .catch(error => {
