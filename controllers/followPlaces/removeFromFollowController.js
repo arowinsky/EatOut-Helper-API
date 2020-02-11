@@ -30,7 +30,7 @@ router.delete("/:z/:placeId", (req, res) => {
               .doc(doc.id)
               .delete()
               .then(() => {
-                res.json({ deleteFollow: true });
+                res.json({ deleteFollow: true, unfollowingPlaceId: placeId });
               })
               .catch(error => {
                 console.log(error);
