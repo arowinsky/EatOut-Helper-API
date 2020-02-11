@@ -15,6 +15,7 @@ router.get("/", (req, res) => {
           const userData = dates.userData;
           if (err === null) {
             res.json({
+              provider : dates.provider,
               userRule: dates.rule,
               userInfo: userData,
               userId: dates.localId
