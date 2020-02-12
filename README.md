@@ -2,7 +2,7 @@
 
 ## CLI
 
-You must have locally installed redis and de-energized redis service & running server redis
+You must have locally installed redis & running server redis
 
 Install dependencies:
 ```bash
