@@ -32,6 +32,7 @@ router.post("/", (req, res) => {
           req.session.email = user.data.email;
           req.session.localId = user.data.localId;
           req.session.expiresIn = user.data.expiresIn;
+          req.session.provider = "email"
           db.collection("users")
             .doc(req.session.localId)
             .get()
@@ -42,6 +43,7 @@ router.post("/", (req, res) => {
               req.session.username = doc.data().username;
               req.session.rule = doc.data().rule;
               res.json({
+                provider: req.session.provider,
                 status: true,
                 name: userData,
                 idSession: req.sessionID,
