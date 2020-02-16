@@ -1,8 +1,7 @@
 # EatOut-Helper-API
+You must have locally installed redis & running server redis
 
 ## In CLI
-
-You must have locally installed redis & running server redis
 
 Install dependencies:
 ```bash
