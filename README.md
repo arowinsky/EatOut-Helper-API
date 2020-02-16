@@ -1,6 +1,6 @@
 # EatOut-Helper-API
 
-## CLI
+## In CLI
 
 You must have locally installed redis & running server redis
 
