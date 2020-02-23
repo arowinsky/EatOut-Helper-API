@@ -1,8 +1,12 @@
 # EatOut-Helper-API
-You must have locally installed redis & running server redis
+You must have locally installed redis
 
 ## In CLI
 
+Run redis-server with path to configuration file:
+```bash
+redis-server /usr/local/etc/redis.conf
+```
 Install dependencies:
 ```bash
 npm install
