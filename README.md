@@ -1,4 +1,5 @@
 # EatOut-Helper-API
+Application has user authorization along with the division into roles owner and client. Supports REST
 You must have locally installed redis
 
 ## In CLI
