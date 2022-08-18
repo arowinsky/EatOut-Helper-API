@@ -4,12 +4,12 @@ require("firebase/firestore");
 const admin = require("firebase-admin");
 const serviceAccount = require("./serviceAccountKey.json");
 const config = {
-  apiKey: "AIzaSyAaJRfgtMU3LqvV07NyiaGfqUj_XGpkoNo",
-  authDomain: "eatout-faae0.firebaseapp.com",
-  databaseURL: "https://eatout-faae0.firebaseio.com",
-  projectId: "eatout-faae0",
-  storageBucket: "eatout-faae0.appspot.com",
-  messagingSenderId: "734346628660",
+  apiKey: "",
+  authDomain: "",
+  databaseURL: "",
+  projectId: "",
+  storageBucket: "",
+  messagingSenderId: "",
   credential: admin.credential.cert(serviceAccount)
 };
 firebase.initializeApp(config);
